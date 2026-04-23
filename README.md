@@ -1,1 +1,147 @@
+# farmer-marketplace
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Marketplace</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #388e3c;
+    }
+
+    nav a {
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background: #1b5e20;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 40px;
+      background: url('https://images.unsplash.com/photo-1500595046743-cd271d694d30') no-repeat center/cover;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .card button {
+      background: #2e7d32;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .card button:hover {
+      background: #1b5e20;
+    }
+
+    footer {
+      background: #2e7d32;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h2>🌾 Farmer to Consumer Marketplace</h2>
+</header>
+
+<nav>
+  <a href="#">Home</a>
+  <a href="#">Products</a>
+  <a href="#">Contact</a>
+</nav>
+
+<section class="hero">
+  <h1>Fresh Products Direct from Farmers</h1>
+  <p>No middleman • Better prices • Fresh quality</p>
+</section>
+
+<section class="products">
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" alt="Tomato">
+    <h3>Tomatoes</h3>
+    <p>₹30/kg</p>
+    <button>Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1582515073490-dc34d8d4d8e3" alt="Potato">
+    <h3>Potatoes</h3>
+    <p>₹20/kg</p>
+    <button>Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" alt="Carrot">
+    <h3>Carrots</h3>
+    <p>₹40/kg</p>
+    <button>Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1589927986089-35812388d1f4" alt="Onion">
+    <h3>Onions</h3>
+    <p>₹25/kg</p>
+    <button>Add to Cart</button>
+  </div>
+
+</section>
+
+<footer>
+  <p>© 2026 Farmer Marketplace | Made for Project</p>
+</footer>
+
+</body>
+</html>w
 # Direct-Farmer-to-Consumer-E-Marketplace
