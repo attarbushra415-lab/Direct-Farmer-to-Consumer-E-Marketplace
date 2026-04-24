@@ -4,243 +4,272 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farmer Cart UI</title>
+<title>FarmDirect Pro</title>
 
 <style>
 body {
   margin: 0;
   font-family: Arial;
-  background: #eee;
+  background: #f5f5f5;
+}
+
+/* NAVBAR */
+nav {
+  position: sticky;
+  top: 0;
+  background: #2e7d32;
+  color: white;
+  padding: 12px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-box {
+  padding: 6px;
+  border-radius: 5px;
+  border: none;
+}
+
+.cart {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* HERO */
+.hero {
+  background: url('https://images.unsplash.com/photo-1606787366850-de6330128bfc') center/cover;
+  color: white;
+  padding: 70px 20px;
+  text-align: center;
+}
+
+/* CATEGORY FILTER */
+.filters {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.filters button {
+  background: white;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+  padding: 6px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* PRODUCTS */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
   gap: 20px;
   padding: 20px;
 }
 
-/* Mobile screen box */
-.screen {
-  width: 260px;
-  height: 520px;
-  border-radius: 12px;
-  overflow: hidden;
+.card {
   background: white;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  position: relative;
-}
-
-/* Splash */
-.splash {
-  background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6') center/cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-
-.logo {
-  background: white;
-  color: green;
-  padding: 12px;
-  border-radius: 50%;
-  font-size: 22px;
-  margin-bottom: 10px;
-}
-
-/* Language */
-.language {
-  background: url('https://images.unsplash.com/photo-1502082553048-f009c37129b9') center/cover;
-  color: white;
-  padding: 20px;
-}
-
-.language h3 {
+  padding: 10px;
+  border-radius: 10px;
   text-align: center;
-}
-
-.lang-list p {
-  margin: 8px 0;
-}
-
-.btn {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background: green;
-  color: white;
-  margin-top: 15px;
-}
-
-/* Signup */
-.signup {
-  padding: 15px;
-}
-
-.signup img {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.signup input {
-  width: 100%;
-  padding: 8px;
-  margin: 6px 0;
-}
-
-/* Products */
-.products {
-  padding: 10px;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.item img {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-}
-
-.item span {
-  flex: 1;
-}
-
-/* Toggle switch */
-.toggle {
-  width: 40px;
-  height: 20px;
-  background: #ccc;
-  border-radius: 20px;
-  position: relative;
-  cursor: pointer;
-}
-
-.toggle::before {
-  content: '';
-  width: 18px;
-  height: 18px;
-  background: white;
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  border-radius: 50%;
   transition: 0.3s;
 }
 
-.toggle.active {
-  background: green;
+.card:hover {
+  transform: scale(1.05);
 }
 
-.toggle.active::before {
-  left: 20px;
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* Quantity */
+.qty {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+/* CART DRAWER */
+.cart-drawer {
+  position: fixed;
+  right: -350px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+  padding: 20px;
+  transition: 0.3s;
+  overflow-y: auto;
+}
+
+.cart-drawer.open {
+  right: 0;
+}
+
+/* BUTTON */
+button {
+  background: #2e7d32;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: black;
+  color: white;
+  padding: 10px;
+  display: none;
+  border-radius: 5px;
+}
+
+/* FOOTER */
+footer {
+  background: #222;
+  color: white;
+  padding: 20px;
+  text-align: center;
 }
 </style>
-
 </head>
 
 <body>
 
-<!-- Splash Screen -->
-<div class="screen splash">
-  <div class="logo">🛒</div>
-  <h2>Farmer Cart</h2>
+<!-- NAV -->
+<nav>
+  <h2>FarmDirect</h2>
+  <input type="text" class="search-box" placeholder="Search..." onkeyup="searchProduct(this.value)">
+  <div class="cart" onclick="toggleCart()">🛒 <span id="count">0</span></div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Fresh From Farmers</h1>
+  <p>Healthy • Organic • Direct</p>
 </div>
 
-<!-- Language Screen -->
-<div class="screen language">
-  <h3>Select Language</h3>
-  <div class="lang-list">
-    <p>English</p>
-    <p>Hindi (हिंदी)</p>
-    <p>Marathi (मराठी)</p>
-    <p>Telugu (తెలుగు)</p>
-    <p>Tamil (தமிழ்)</p>
-  </div>
-  <button class="btn">Continue</button>
+<!-- FILTERS -->
+<div class="filters">
+  <button onclick="filter('all')">All</button>
+  <button onclick="filter('vegetable')">Vegetables</button>
+  <button onclick="filter('fruit')">Fruits</button>
 </div>
 
-<!-- Signup Screen -->
-<div class="screen signup">
-  <h3>Create Account</h3>
+<!-- PRODUCTS -->
+<div class="products" id="productList"></div>
 
-  <input placeholder="Email / Mobile">
-  <input placeholder="Username">
-  <input placeholder="Password" type="password">
-
-  <img src="https://images.unsplash.com/photo-1542838132-92c53300491e">
-
-  <button class="btn">Continue</button>
+<!-- CART -->
+<div class="cart-drawer" id="cart">
+  <h3>Your Cart</h3>
+  <div id="cartItems"></div>
+  <h4>Total: ₹<span id="total">0</span></h4>
+  <button onclick="checkout()">Checkout</button>
 </div>
 
-<!-- Left Product List -->
-<div class="screen products">
-  <div class="item">
-    <img src="https://cdn-icons-png.flaticon.com/512/415/415733.png">
-    <span>Spinach</span>
-    <div class="toggle"></div>
-  </div>
+<!-- TOAST -->
+<div class="toast" id="toast">Added to Cart</div>
 
-  <div class="item">
-    <img src="https://cdn-icons-png.flaticon.com/512/590/590685.png">
-    <span>Strawberry</span>
-    <div class="toggle"></div>
-  </div>
-
-  <div class="item">
-    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909760.png">
-    <span>Grapes</span>
-    <div class="toggle"></div>
-  </div>
-
-  <div class="item">
-    <img src="https://cdn-icons-png.flaticon.com/512/590/590682.png">
-    <span>Banana</span>
-    <div class="toggle"></div>
-  </div>
-</div>
-
-<!-- Right Product List -->
-<div class="screen products">
-  <div class="item">
-    <img src="https://cdn-icons-png.flaticon.com/512/135/135620.png">
-    <span>Tomato ₹40</span>
-    <div class="toggle"></div>
-  </div>
-
-  <div class="item">
-    <img src="https://cdn-icons-png.flaticon.com/512/590/590685.png">
-    <span>Mango ₹80</span>
-    <div class="toggle"></div>
-  </div>
-
-  <div class="item">
-    <img src="https://cdn-icons-png.flaticon.com/512/766/766020.png">
-    <span>Mushroom ₹40</span>
-    <div class="toggle"></div>
-  </div>
-
-  <div class="item">
-    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909760.png">
-    <span>Blueberries</span>
-    <div class="toggle"></div>
-  </div>
-</div>
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 FarmDirect Pro</p>
+</footer>
 
 <script>
-document.querySelectorAll('.toggle').forEach(t => {
-  t.addEventListener('click', () => {
-    t.classList.toggle('active');
+const products = [
+  {name:"Tomato",price:30,cat:"vegetable",img:"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce"},
+  {name:"Potato",price:25,cat:"vegetable",img:"https://images.unsplash.com/photo-1582515073490-dc0a1d0b36a5"},
+  {name:"Carrot",price:40,cat:"vegetable",img:"https://images.unsplash.com/photo-1582515073490-dc0a1d0b36a5"},
+  {name:"Onion",price:35,cat:"vegetable",img:"https://images.unsplash.com/photo-1587049352851-8d4e89133924"},
+  {name:"Apple",price:120,cat:"fruit",img:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6"},
+  {name:"Banana",price:50,cat:"fruit",img:"https://images.unsplash.com/photo-1574226516831-e1dff420e37d"},
+  {name:"Spinach",price:20,cat:"vegetable",img:"https://images.unsplash.com/photo-1576045057995-568f588f82fb"},
+  {name:"Mango",price:150,cat:"fruit",img:"https://images.unsplash.com/photo-1550258987-190a2d41a8ba"}
+];
+
+let cart = [];
+
+function displayProducts(list = products) {
+  const box = document.getElementById("productList");
+  box.innerHTML = "";
+  list.forEach((p,i)=>{
+    box.innerHTML += `
+      <div class="card">
+        <img src="${p.img}">
+        <h3>${p.name}</h3>
+        <p>₹${p.price}</p>
+        <button onclick="addToCart(${i})">Add</button>
+      </div>`;
   });
-});
+}
+
+function addToCart(i){
+  cart.push(products[i]);
+  updateCart();
+  showToast();
+}
+
+function updateCart(){
+  let items = document.getElementById("cartItems");
+  items.innerHTML="";
+  let total=0;
+
+  cart.forEach((item,i)=>{
+    total+=item.price;
+    items.innerHTML+=`
+    <div>
+      ${item.name} ₹${item.price}
+      <button onclick="removeItem(${i})">❌</button>
+    </div>`;
+  });
+
+  document.getElementById("total").innerText=total;
+  document.getElementById("count").innerText=cart.length;
+}
+
+function removeItem(i){
+  cart.splice(i,1);
+  updateCart();
+}
+
+function toggleCart(){
+  document.getElementById("cart").classList.toggle("open");
+}
+
+function showToast(){
+  let t=document.getElementById("toast");
+  t.style.display="block";
+  setTimeout(()=>t.style.display="none",1500);
+}
+
+function searchProduct(q){
+  let res=products.filter(p=>p.name.toLowerCase().includes(q.toLowerCase()));
+  displayProducts(res);
+}
+
+function filter(cat){
+  if(cat==="all") displayProducts();
+  else displayProducts(products.filter(p=>p.cat===cat));
+}
+
+function checkout(){
+  if(cart.length===0) alert("Cart empty");
+  else alert("Order placed!");
+}
+
+displayProducts();
 </script>
 
 </body>
 </html>
-
