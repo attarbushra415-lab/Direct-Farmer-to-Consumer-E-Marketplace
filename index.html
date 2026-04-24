@@ -4,320 +4,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmer Cart - Modern Grocery UI</title>
+    <title>Farmer Cart | Fresh Groceries</title>
     <style>
         :root {
-            --blinkit-green: #0c831f;
-            --blinkit-yellow: #f7d54d;
-            --bg-light: #f5f7f9;
-            --text-dark: #1f1f1f;
-            --text-muted: #666;
-            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --primary: #0c831f; /* Blinkit Green */
+            --accent: #f7d54d;  /* Blinkit Yellow */
+            --bg: #f4f6fb;
+            --white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-light: #666666;
+            --shadow: 0 8px 20px rgba(0,0,0,0.06);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #121212; color: var(--text-dark); }
 
-        body {
-            background-color: #2c3e50;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 40px;
-            gap: 30px;
-            overflow-x: auto;
-        }
-
-        /* Smartphone Frame */
-        .phone-frame {
-            min-width: 360px;
-            width: 360px;
-            height: 740px;
-            background: white;
-            border-radius: 40px;
-            border: 8px solid #1a1a1a;
+        /* Main Container for Mobile View on Desktop */
+        .app-wrapper {
+            max-width: 450px;
+            margin: 0 auto;
+            background: var(--white);
+            min-height: 100vh;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        /* Common Section Styling */
+        section {
+            padding: 24px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-        }
-
-        /* Utility Classes */
-        .screen { height: 100%; width: 100%; display: flex; flex-direction: column; position: relative; }
-        .hidden { display: none; }
-        .btn-primary {
-            background: var(--blinkit-green);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
+            border-bottom: 10px solid var(--bg);
         }
 
         /* 1. Splash Screen */
-        #splash-screen {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=600');
-            background-size: cover;
+        .splash {
+            background: var(--accent);
             justify-content: center;
             align-items: center;
-            color: white;
             text-align: center;
         }
-        .logo-circle {
-            width: 100px; height: 100px;
-            background: var(--blinkit-yellow);
-            border-radius: 50%;
+        .logo-icon {
+            font-size: 70px;
+            background: white;
+            width: 120px;
+            height: 120px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 40px;
-            margin-bottom: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            justify-content: center;
+            border-radius: 35px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        /* 2. Language Screen */
-        #lang-screen {
-            background: url('https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&q=80&w=600') center;
-            background-size: cover;
-            padding: 20px;
-            justify-content: flex-end;
-        }
+        /* 2. Language Selection */
         .lang-card {
-            background: white;
-            padding: 25px;
-            border-radius: 24px;
-            box-shadow: var(--shadow);
-        }
-        .lang-option {
-            padding: 12px;
-            border: 1px solid #eee;
-            margin-bottom: 10px;
-            border-radius: 10px;
+            border: 2px solid #eee;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
         }
-        .lang-option.active { border-color: var(--blinkit-green); background: #f0fff0; }
+        .lang-card.active { border-color: var(--primary); background: #f0fff0; }
 
-        /* 3. Signup Screen */
-        #signup-screen { padding: 30px 20px; }
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 5px; }
-        .input-group input {
-            width: 100%; padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            outline-color: var(--blinkit-green);
+        /* 3. Interactive Signup Form */
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--text-light); margin-bottom: 6px; text-transform: uppercase; }
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--bg);
+            outline: none;
         }
+        .form-group input:focus { border-color: var(--primary); background: white; }
 
-        /* 4. Product Listing (Blinkit Style) */
-        .app-header {
-            padding: 15px;
-            background: white;
-            border-bottom: 1px solid #f0f0f0;
+        /* 4. Product Listing Layout */
+        .sticky-nav {
             position: sticky;
             top: 0;
-            z-index: 10;
+            background: white;
+            z-index: 100;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .search-bar {
-            background: #f1f2f4;
-            padding: 10px;
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            padding: 10px 15px;
             border-radius: 10px;
-            font-size: 14px;
-            color: #888;
             margin-top: 10px;
         }
+        .search-container input {
+            border: none;
+            background: none;
+            outline: none;
+            margin-left: 10px;
+            width: 100%;
+        }
+
         .product-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            padding: 12px;
-            overflow-y: auto;
-            background: #fff;
+            padding: 15px 0;
         }
         .product-card {
-            border: 1px solid #e8e8e8;
-            border-radius: 12px;
-            padding: 8px;
+            background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 16px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
-            position: relative;
+            transition: 0.2s;
         }
-        .product-img {
-            width: 100%;
-            height: 100px;
-            object-fit: contain;
-            margin-bottom: 8px;
-        }
-        .product-name { font-size: 13px; font-weight: 500; height: 36px; overflow: hidden; }
-        .product-weight { font-size: 11px; color: var(--text-muted); margin: 4px 0; }
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 8px;
-        }
-        .price { font-weight: 700; font-size: 14px; }
+        .product-card:hover { border-color: var(--primary); }
+        .p-img { width: 100%; height: 110px; object-fit: contain; margin-bottom: 8px; }
+        .p-name { font-size: 14px; font-weight: 600; color: #333; line-height: 1.3; height: 36px; overflow: hidden; }
+        .p-weight { font-size: 12px; color: var(--text-light); margin: 4px 0 10px 0; }
+        .p-row { display: flex; justify-content: space-between; align-items: center; }
+        .p-price { font-weight: 800; font-size: 15px; }
+
         .add-btn {
             background: white;
-            color: var(--blinkit-green);
-            border: 1px solid var(--blinkit-green);
-            padding: 4px 16px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 12px;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-weight: 700;
             cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
         }
-        .add-btn:hover { background: #f0fff0; }
+        .add-btn:hover { background: var(--primary); color: white; }
 
-        /* Cart Drawer */
-        .cart-bar {
-            background: var(--blinkit-green);
+        /* Buttons & Footer */
+        .btn-main {
+            background: var(--primary);
             color: white;
-            padding: 12px 20px;
-            display: flex;
+            padding: 18px;
+            border-radius: 14px;
+            border: none;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: auto;
+        }
+
+        /* Floating Cart Bar */
+        #cart-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            background: var(--primary);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 14px;
+            display: none;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 10px 30px rgba(12,131,31,0.4);
+            z-index: 1000;
             cursor: pointer;
-            margin: 10px;
-            border-radius: 12px;
         }
+
+        /* Helper */
+        .spacer { height: 120px; }
     </style>
 </head>
 <body>
 
-    <div class="phone-frame">
-        <div id="splash-screen" class="screen">
-            <div class="logo-circle">🛒</div>
-            <h1 style="font-weight: 800; letter-spacing: -1px;">Farmer Cart</h1>
-            <p style="font-size: 14px; opacity: 0.9;">Everything in minutes</p>
+<div class="app-wrapper">
+
+    <section class="splash">
+        <div class="logo-icon">🧺</div>
+        <h1 style="font-weight: 900; letter-spacing: -1px; font-size: 36px;">Farmer Cart</h1>
+        <p style="opacity: 0.8; font-weight: 500;">Fresh Veggies in 10 Mins</p>
+        <p style="margin-top: 50px; font-size: 12px; color: #555; animation: bounce 2s infinite;">SCROLL DOWN TO START ↓</p>
+    </section>
+
+    <section id="lang-section">
+        <h2 style="margin-bottom: 20px;">Select Language</h2>
+        <div class="lang-card active" onclick="setLang(this)">
+            <div><strong>English</strong><p style="font-size: 12px; color: var(--text-light)">Primary Language</p></div>
+            <span>✔</span>
         </div>
-    </div>
-
-    <div class="phone-frame">
-        <div id="lang-screen" class="screen">
-            <div class="lang-card">
-                <h3 style="margin-bottom: 15px;">Choose Language</h3>
-                <div class="lang-option active"><span>English</span> <span>✓</span></div>
-                <div class="lang-option"><span>Hindi (हिंदी)</span></div>
-                <div class="lang-option"><span>Marathi (मराठी)</span></div>
-                <div class="lang-option"><span>Tamil (தமிழ்)</span></div>
-                <button class="btn-primary" style="margin-top: 10px;">Continue</button>
-            </div>
+        <div class="lang-card" onclick="setLang(this)">
+            <div><strong>Hindi (हिंदी)</strong><p style="font-size: 12px; color: var(--text-light)">हिन्दी भाषा</p></div>
         </div>
-    </div>
-
-    <div class="phone-frame">
-        <div id="signup-screen" class="screen">
-            <h2 style="margin-bottom: 8px;">Welcome!</h2>
-            <p style="color: #666; font-size: 14px; margin-bottom: 30px;">Sign up to get started</p>
-            
-            <div class="input-group">
-                <label>Mobile Number / Email</label>
-                <input type="text" placeholder="e.g. 9876543210">
-            </div>
-            <div class="input-group">
-                <label>Username</label>
-                <input type="text" placeholder="John Doe">
-            </div>
-            <div class="input-group">
-                <label>Password</label>
-                <input type="password" placeholder="••••••••">
-            </div>
-            <button class="btn-primary" style="margin-top: 20px;">Create Account</button>
+        <div class="lang-card" onclick="setLang(this)">
+            <div><strong>Marathi (मराठी)</strong><p style="font-size: 12px; color: var(--text-light)">मराठी भाषा</p></div>
         </div>
-    </div>
+        <button class="btn-main" onclick="navTo('signup-section')">Continue</button>
+    </section>
 
-    <div class="phone-frame">
-        <div id="main-app" class="screen">
-            <div class="app-header">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <p style="font-weight: 800; font-size: 14px;">Delivery in 9 mins</p>
-                        <p style="font-size: 12px; color: var(--text-muted);">Home - H-12, Green Park...</p>
-                    </div>
-                    <div style="font-size: 20px;">👤</div>
+    <section id="signup-section">
+        <h2 style="margin-bottom: 8px;">Let's Get Started!</h2>
+        <p style="color: var(--text-light); margin-bottom: 30px;">Create an account to start shopping.</p>
+        
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="inp-name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="tel" id="inp-phone" placeholder="+91 00000 00000">
+        </div>
+        <div class="form-group">
+            <label>Email ID</label>
+            <input type="email" id="inp-email" placeholder="example@mail.com">
+        </div>
+
+        <button class="btn-main" onclick="validateAndGo()">Start Shopping</button>
+    </section>
+
+    <section id="store-section" style="padding: 0;">
+        <div class="sticky-nav">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <span style="font-size: 11px; font-weight: 800; color: var(--primary);">DELIVERING TO</span>
+                    <h4 id="display-name" style="font-size: 14px;">User's Home ▾</h4>
                 </div>
-                <div class="search-bar">Search "milk"</div>
+                <div style="font-size: 22px;">🛒</div>
             </div>
-
-            <div class="product-grid" id="product-list">
-                </div>
-
-            <div id="cart-container" class="hidden">
-                <div class="cart-bar" onclick="checkout()">
-                    <div>
-                        <span id="cart-count">0 ITEMS</span>
-                        <div id="cart-total" style="font-weight: bold; font-size: 16px;">₹0</div>
-                    </div>
-                    <div style="font-weight: bold;">View Cart ➜</div>
-                </div>
+            <div class="search-container">
+                <span>🔍</span>
+                <input type="text" id="searchBar" onkeyup="searchItems()" placeholder="Search 'Onion' or 'Tomato'...">
             </div>
         </div>
-    </div>
 
-    <script>
-        const products = [
-            { id: 1, name: "Fresh Tomato (Hybrid)", weight: "500 g", price: 34, img: "https://cdn.pixabay.com/photo/2011/03/16/16/01/tomatoes-5356_1280.jpg" },
-            { id: 2, name: "Onion (Pyaz)", weight: "1 kg", price: 48, img: "https://images.unsplash.com/photo-1508747703725-719777637510?auto=format&fit=crop&q=80&w=200" },
-            { id: 3, name: "Fresh Broccoli", weight: "250 g", price: 85, img: "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&q=80&w=200" },
-            { id: 4, name: "Organic Banana", weight: "6 pcs", price: 45, img: "https://images.unsplash.com/photo-1571771894821-ad9958a3f747?auto=format&fit=crop&q=80&w=200" },
-            { id: 5, name: "Alphonso Mango", weight: "1 kg", price: 450, img: "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&q=80&w=200" },
-            { id: 6, name: "Green Capsicum", weight: "250 g", price: 28, img: "https://images.unsplash.com/photo-1563513307167-6d9ddcd3bb7a?auto=format&fit=crop&q=80&w=200" }
-        ];
-
-        let cart = [];
-
-        function renderProducts() {
-            const grid = document.getElementById('product-list');
-            grid.innerHTML = products.map(p => `
-                <div class="product-card">
-                    <img src="${p.img}" class="product-img" alt="${p.name}">
-                    <div class="product-name">${p.name}</div>
-                    <div class="product-weight">${p.weight}</div>
-                    <div class="card-footer">
-                        <span class="price">₹${p.price}</span>
-                        <button class="add-btn" onclick="addToCart(${p.id})">ADD</button>
-                    </div>
+        <div style="padding: 15px;">
+            <h3 style="margin-bottom: 15px;">Seasonal Vegetables</h3>
+            <div class="product-grid" id="mainGrid">
                 </div>
-            `).join('');
+        </div>
+        <div class="spacer"></div>
+    </section>
+
+</div>
+
+<div id="cart-bar" onclick="processCheckout()">
+    <div>
+        <span id="cart-items-count">1 Item</span>
+        <div id="cart-total-price" style="font-weight: 800; font-size: 18px;">₹0</div>
+    </div>
+    <div style="font-weight: 700; display: flex; align-items: center;">
+        Next ➜
+    </div>
+</div>
+
+<script>
+    // Database
+    const productData = [
+        { id: 1, name: "Fresh Red Tomato", qty: "500 g", price: 35, img: "https://cdn-icons-png.flaticon.com/512/1202/1202125.png" },
+        { id: 2, name: "Organic Onion", qty: "1 kg", price: 48, img: "https://cdn-icons-png.flaticon.com/512/7230/7230868.png" },
+        { id: 3, name: "White Potato", qty: "1 kg", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1135/1135544.png" },
+        { id: 4, name: "Green Chili", qty: "100 g", price: 15, img: "https://cdn-icons-png.flaticon.com/512/2324/2324631.png" },
+        { id: 5, name: "Carrot (Gajar)", qty: "500 g", price: 45, img: "https://cdn-icons-png.flaticon.com/512/2224/2224115.png" },
+        { id: 6, name: "Cauliflower", qty: "1 pc", price: 60, img: "https://cdn-icons-png.flaticon.com/512/2324/2324508.png" },
+        { id: 7, name: "Fresh Ginger", qty: "250 g", price: 55, img: "https://cdn-icons-png.flaticon.com/512/2909/2909772.png" },
+        { id: 8, name: "Garlic Bundle", qty: "100 g", price: 40, img: "https://cdn-icons-png.flaticon.com/512/1041/1041344.png" }
+    ];
+
+    let cart = [];
+
+    // Navigation
+    function navTo(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function setLang(el) {
+        document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    // Form Validation & Interaction
+    function validateAndGo() {
+        const name = document.getElementById('inp-name').value;
+        const phone = document.getElementById('inp-phone').value;
+
+        if (name.length < 3) {
+            alert("Please enter your full name");
+            return;
+        }
+        if (phone.length < 10) {
+            alert("Please enter a valid phone number");
+            return;
         }
 
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            cart.push(product);
-            updateCartUI();
-        }
+        document.getElementById('display-name').innerText = name + " ▾";
+        navTo('store-section');
+    }
 
-        function updateCartUI() {
-            const cartContainer = document.getElementById('cart-container');
-            const cartCount = document.getElementById('cart-count');
-            const cartTotal = document.getElementById('cart-total');
+    // Load Products
+    function loadStore(items) {
+        const grid = document.getElementById('mainGrid');
+        grid.innerHTML = items.map(p => `
+            <div class="product-card">
+                <img src="${p.img}" class="p-img">
+                <div class="p-name">${p.name}</div>
+                <div class="p-weight">${p.qty}</div>
+                <div class="p-row">
+                    <span class="p-price">₹${p.price}</span>
+                    <button class="add-btn" onclick="addToCart(${p.id})">ADD</button>
+                </div>
+            </div>
+        `).join('');
+    }
 
-            if (cart.length > 0) {
-                cartContainer.classList.remove('hidden');
-                cartCount.innerText = `${cart.length} ITEM${cart.length > 1 ? 'S' : ''}`;
-                const total = cart.reduce((sum, item) => sum + item.price, 0);
-                cartTotal.innerText = `₹${total}`;
-            }
-        }
+    // Search Logic
+    function searchItems() {
+        const term = document.getElementById('searchBar').value.toLowerCase();
+        const filtered = productData.filter(p => p.name.toLowerCase().includes(term));
+        loadStore(filtered);
+    }
 
-        function checkout() {
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            alert(`Order Placed Successfully!\nTotal Amount: ₹${total}\nItems: ${cart.length}\n\nThank you for shopping with Farmer Cart!`);
-            cart = [];
-            document.getElementById('cart-container').classList.add('hidden');
-        }
+    // Cart Logic
+    function addToCart(id) {
+        const p = productData.find(x => x.id === id);
+        cart.push(p);
+        
+        const bar = document.getElementById('cart-bar');
+        const countTxt = document.getElementById('cart-items-count');
+        const priceTxt = document.getElementById('cart-total-price');
 
-        // Initialize
-        renderProducts();
-    </script>
+        bar.style.display = 'flex';
+        countTxt.innerText = cart.length + (cart.length > 1 ? " Items" : " Item");
+        
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        priceTxt.innerText = "₹" + total;
+    }
+
+    function processCheckout() {
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        alert(`🎉 ORDER PLACED!\n\nThank you ${document.getElementById('inp-name').value}.\nYour bill of ₹${total} is confirmed.\nDelivery in 10 minutes.`);
+        
+        // Reset Cart
+        cart = [];
+        document.getElementById('cart-bar').style.display = 'none';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Init
+    loadStore(productData);
+</script>
+
 </body>
 </html>
