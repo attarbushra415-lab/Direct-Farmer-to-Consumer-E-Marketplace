@@ -135,7 +135,7 @@ footer {
 
   <!-- Tomatoes -->
   <div class="card" data-name="tomato">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Bright_red_tomato_and_cross_section02.jpg">
+    <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=800&q=80">
     <h3>Tomatoes</h3>
     <p>₹30/kg</p>
     <button onclick="addToCart('Tomatoes',30)">Add to Cart</button>
@@ -143,7 +143,7 @@ footer {
 
   <!-- Potatoes -->
   <div class="card" data-name="potato">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg">
+    <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80">
     <h3>Potatoes</h3>
     <p>₹20/kg</p>
     <button onclick="addToCart('Potatoes',20)">Add to Cart</button>
@@ -151,7 +151,7 @@ footer {
 
   <!-- Carrots -->
   <div class="card" data-name="carrot">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Carrots_of_many_colors.jpg">
+    <img src="https://images.unsplash.com/photo-1447175008436-054170c2e979?auto=format&fit=crop&w=800&q=80">
     <h3>Carrots</h3>
     <p>₹40/kg</p>
     <button onclick="addToCart('Carrots',40)">Add to Cart</button>
@@ -159,7 +159,7 @@ footer {
 
   <!-- Onions -->
   <div class="card" data-name="onion">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Onions.jpg">
+    <img src="https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=800&q=80">
     <h3>Onions</h3>
     <p>₹25/kg</p>
     <button onclick="addToCart('Onions',25)">Add to Cart</button>
