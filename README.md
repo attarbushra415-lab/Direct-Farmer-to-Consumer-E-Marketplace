@@ -1,260 +1,233 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Farmer Marketplace | Fresh & Direct</title>
+  <title>Farmer Marketplace</title>
   <style>
     :root {
       --primary: #2e7d32;
       --secondary: #388e3c;
-      --accent: #ffa000;
-      --dark: #1b5e20;
-      --light: #f5f5f5;
+      --accent: #fbc02d;
+      --bg: #f9fbf9;
     }
 
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--light);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
       color: #333;
     }
 
-    /* Header & Navigation */
+    /* Navbar */
     header {
       background: var(--primary);
       color: white;
-      padding: 20px;
-      text-align: center;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 100;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
-    .cart-status {
-      position: absolute;
-      right: 20px;
-      top: 25px;
-      background: var(--accent);
-      padding: 5px 15px;
+    .logo { font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+    
+    .cart-btn {
+      background: white;
+      color: var(--primary);
+      padding: 8px 15px;
       border-radius: 20px;
       font-weight: bold;
-      font-size: 0.9rem;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      background: var(--secondary);
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: white;
-      padding: 14px 25px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      background: var(--dark);
+      cursor: pointer;
     }
 
     /* Hero Section */
     .hero {
-      text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                  url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=1470') no-repeat center/cover;
+      height: 300px;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                  url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=1000&auto=format&fit=crop') center/cover;
       color: white;
-    }
-
-    .search-container {
-      margin-top: 20px;
-    }
-
-    .search-container input {
-      padding: 12px;
-      width: 300px;
-      border-radius: 25px;
-      border: none;
-      outline: none;
-    }
-
-    /* Grid Layout */
-    .section-title {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      margin-top: 40px;
-      color: var(--primary);
     }
 
-    .products {
+    /* Product Grid */
+    .container { max-width: 1200px; margin: 2rem auto; padding: 0 20px; }
+    
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 25px;
-      padding: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
     }
 
-    /* Product Cards */
     .card {
       background: white;
-      padding: 0 0 20px 0;
-      border-radius: 15px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: 0.3s;
+      border: 1px solid #eee;
     }
 
-    .card:hover {
-      transform: translateY(-5px);
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+
+    .img-container {
+      width: 100%;
+      height: 180px;
+      background: #e0e0e0; /* Fallback color */
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .card img {
       width: 100%;
-      height: 200px;
+      height: 100%;
       object-fit: cover;
     }
 
-    .card h3 {
-      margin: 15px 0 5px 0;
-    }
-
+    .card-info { padding: 15px; text-align: center; }
+    
     .price {
       color: var(--primary);
-      font-weight: bold;
       font-size: 1.2rem;
+      font-weight: bold;
       margin: 10px 0;
     }
 
-    .card button {
+    .btn {
       background: var(--primary);
       color: white;
       border: none;
-      padding: 10px 25px;
+      padding: 10px 20px;
+      border-radius: 5px;
       cursor: pointer;
-      border-radius: 25px;
+      width: 100%;
       font-weight: bold;
-      transition: 0.3s;
     }
 
-    .card button:hover {
-      background: var(--accent);
-      color: #000;
-    }
+    .btn:hover { background: var(--secondary); }
 
-    /* Footer */
     footer {
-      background: var(--dark);
-      color: white;
+      background: #222;
+      color: #999;
       text-align: center;
-      padding: 30px;
-      margin-top: 50px;
+      padding: 2rem;
+      margin-top: 4rem;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h2>🌾 Farmer Direct</h2>
-  <div class="cart-status">🛒 Cart: <span id="cart-count">0</span></div>
+  <div class="logo"><span>🌾</span> Farm2Fork</div>
+  <div class="cart-btn">🛒 Cart (<span id="count">0</span>)</div>
 </header>
 
-<nav>
-  <a href="#">Home</a>
-  <a href="#">Vegetables</a>
-  <a href="#">Fruits</a>
-  <a href="#">Dairy & Eggs</a>
-  <a href="#">Contact</a>
-</nav>
-
 <section class="hero">
-  <h1>Fresh Harvest, Zero Intermediaries</h1>
-  <p>Supporting local farmers, delivering health to your doorstep.</p>
-  <div class="search-container">
-    <input type="text" placeholder="Search for organic produce...">
-  </div>
+  <h1>Directly From the Roots</h1>
+  <p>Freshly picked this morning, delivered to you tonight.</p>
 </section>
 
-<h2 class="section-title">Fresh Vegetables</h2>
-<section class="products">
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1597362868429-4948d47afb90?auto=format&fit=crop&q=80&w=600" alt="Bell Peppers">
-    <h3>Organic Bell Peppers</h3>
-    <p class="price">₹60/kg</p>
-    <button onclick="addToCart()">Add to Cart</button>
-  </div>
+<div class="container">
+  <h2 style="text-align:center; margin-bottom: 30px;">Seasonal Fresh Produce</h2>
+  
+  <div class="grid">
+    <div class="card">
+      <div class="img-container">
+        <img src="https://images.unsplash.com/photo-1518977676601-b53f02ac6d31?q=80&w=500&auto=format&fit=crop" alt="Organic Potato">
+      </div>
+      <div class="card-info">
+        <h3>Russet Potatoes</h3>
+        <p class="price">₹40/kg</p>
+        <button class="btn" onclick="add()">Add to Cart</button>
+      </div>
+    </div>
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1518977676601-b53f02ac6d31?auto=format&fit=crop&q=80&w=600" alt="Potatoes">
-    <h3>Yukon Gold Potatoes</h3>
-    <p class="price">₹25/kg</p>
-    <button onclick="addToCart()">Add to Cart</button>
-  </div>
+    <div class="card">
+      <div class="img-container">
+        <img src="https://images.unsplash.com/photo-1582284738083-0c444b05908c?q=80&w=500&auto=format&fit=crop" alt="Tomatoes">
+      </div>
+      <div class="card-info">
+        <h3>Cherry Tomatoes</h3>
+        <p class="price">₹60/kg</p>
+        <button class="btn" onclick="add()">Add to Cart</button>
+      </div>
+    </div>
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&q=80&w=600" alt="Carrots">
-    <h3>Farm Fresh Carrots</h3>
-    <p class="price">₹45/kg</p>
-    <button onclick="addToCart()">Add to Cart</button>
-  </div>
+    <div class="card">
+      <div class="img-container">
+        <img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?q=80&w=500&auto=format&fit=crop" alt="Carrots">
+      </div>
+      <div class="card-info">
+        <h3>Organic Carrots</h3>
+        <p class="price">₹50/kg</p>
+        <button class="btn" onclick="add()">Add to Cart</button>
+      </div>
+    </div>
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1557844352-761f2565b576?auto=format&fit=crop&q=80&w=600" alt="Spinach">
-    <h3>Organic Spinach</h3>
-    <p class="price">₹20/bunch</p>
-    <button onclick="addToCart()">Add to Cart</button>
-  </div>
-</section>
+    <div class="card">
+      <div class="img-container">
+        <img src="https://images.unsplash.com/photo-1550583724-1255818c053b?q=80&w=500&auto=format&fit=crop" alt="Fresh Milk">
+      </div>
+      <div class="card-info">
+        <h3>Farm Fresh Milk</h3>
+        <p class="price">₹65/L</p>
+        <button class="btn" onclick="add()">Add to Cart</button>
+      </div>
+    </div>
 
-<h2 class="section-title">Fruits & Dairy</h2>
-<section class="products">
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6bccb?auto=format&fit=crop&q=80&w=600" alt="Apples">
-    <h3>Himachal Apples</h3>
-    <p class="price">₹120/kg</p>
-    <button onclick="addToCart()">Add to Cart</button>
-  </div>
+    <div class="card">
+      <div class="img-container">
+        <img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=500&auto=format&fit=crop" alt="Honey">
+      </div>
+      <div class="card-info">
+        <h3>Wild Forest Honey</h3>
+        <p class="price">₹280/500g</p>
+        <button class="btn" onclick="add()">Add to Cart</button>
+      </div>
+    </div>
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1528498033373-3c6c08e93d79?auto=format&fit=crop&q=80&w=600" alt="Bananas">
-    <h3>Organic Bananas</h3>
-    <p class="price">₹50/dozen</p>
-    <button onclick="addToCart()">Add to Cart</button>
+    <div class="card">
+      <div class="img-container">
+        <img src="https://images.unsplash.com/photo-1582722872445-44c5b7c3c8f7?q=80&w=500&auto=format&fit=crop" alt="Eggs">
+      </div>
+      <div class="card-info">
+        <h3>Free Range Eggs</h3>
+        <p class="price">₹90/Dozen</p>
+        <button class="btn" onclick="add()">Add to Cart</button>
+      </div>
+    </div>
   </div>
-
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1550583724-1255818c053b?auto=format&fit=crop&q=80&w=600" alt="Milk">
-    <h3>Fresh Farm Milk</h3>
-    <p class="price">₹60/Litre</p>
-    <button onclick="addToCart()">Add to Cart</button>
-  </div>
-
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1566112907491-949439606dcc?auto=format&fit=crop&q=80&w=600" alt="Honey">
-    <h3>Raw Forest Honey</h3>
-    <p class="price">₹250/500g</p>
-    <button onclick="addToCart()">Add to Cart</button>
-  </div>
-</section>
+</div>
 
 <footer>
-  <p>© 2026 Farmer Marketplace | Empowering Local Agriculture</p>
-  <p><small>Privacy Policy • Terms of Service • Help Center</small></p>
+  <p>© 2026 Farmer Marketplace | Supporting Local Agriculture</p>
 </footer>
 
 <script>
-  let count = 0;
-  function addToCart() {
-    count++;
-    document.getElementById('cart-count').innerText = count;
-    alert("Item added to your basket!");
+  let cartCount = 0;
+  function add() {
+    cartCount++;
+    document.getElementById('count').innerText = cartCount;
+    // Simple UI feedback
+    const btn = event.target;
+    const originalText = btn.innerText;
+    btn.innerText = "✓ Added";
+    btn.style.background = "#388e3c";
+    setTimeout(() => {
+      btn.innerText = originalText;
+      btn.style.background = "#2e7d32";
+    }, 1000);
   }
 </script>
 
 </body>
 </html>
+
