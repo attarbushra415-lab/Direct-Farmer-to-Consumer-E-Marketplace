@@ -1,362 +1,247 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmer Cart | Fresh Groceries</title>
-    <style>
-        :root {
-            --primary: #0c831f; /* Blinkit Green */
-            --accent: #f7d54d;  /* Blinkit Yellow */
-            --bg: #f4f6fb;
-            --white: #ffffff;
-            --text-dark: #1a1a1a;
-            --text-light: #666666;
-            --shadow: 0 8px 20px rgba(0,0,0,0.06);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarmDirect Premium UI</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #121212; color: var(--text-dark); }
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #eaeaea;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
 
-        /* Main Container for Mobile View on Desktop */
-        .app-wrapper {
-            max-width: 450px;
-            margin: 0 auto;
-            background: var(--white);
-            min-height: 100vh;
-            position: relative;
-        }
+/* PHONE FRAME */
+.phone {
+    width: 260px;
+    height: 540px;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    overflow: hidden;
+    position: relative;
+}
 
-        /* Common Section Styling */
-        section {
-            padding: 24px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            border-bottom: 10px solid var(--bg);
-        }
+/* HEADER */
+.header {
+    background: #0c831f;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+}
 
-        /* 1. Splash Screen */
-        .splash {
-            background: var(--accent);
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .logo-icon {
-            font-size: 70px;
-            background: white;
-            width: 120px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 35px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
+/* SPLASH */
+.splash {
+    background: url('https://images.unsplash.com/photo-1542838132-92c53300491e');
+    background-size: cover;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 2px 5px black;
+}
 
-        /* 2. Language Selection */
-        .lang-card {
-            border: 2px solid #eee;
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.3s;
-        }
-        .lang-card.active { border-color: var(--primary); background: #f0fff0; }
+/* HOME */
+.content {
+    padding: 10px;
+    overflow-y: auto;
+    height: 100%;
+}
 
-        /* 3. Interactive Signup Form */
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--text-light); margin-bottom: 6px; text-transform: uppercase; }
-        .form-group input {
-            width: 100%;
-            padding: 14px;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 16px;
-            background: var(--bg);
-            outline: none;
-        }
-        .form-group input:focus { border-color: var(--primary); background: white; }
+.banner {
+    background: #f7d54d;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
 
-        /* 4. Product Listing Layout */
-        .sticky-nav {
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 100;
-            padding: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .search-container {
-            display: flex;
-            align-items: center;
-            background: var(--bg);
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-        .search-container input {
-            border: none;
-            background: none;
-            outline: none;
-            margin-left: 10px;
-            width: 100%;
-        }
+/* PRODUCTS */
+.product {
+    display: flex;
+    gap: 10px;
+    background: #fafafa;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 10px;
+}
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 15px 0;
-        }
-        .product-card {
-            background: white;
-            border: 1px solid #f0f0f0;
-            border-radius: 16px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            transition: 0.2s;
-        }
-        .product-card:hover { border-color: var(--primary); }
-        .p-img { width: 100%; height: 110px; object-fit: contain; margin-bottom: 8px; }
-        .p-name { font-size: 14px; font-weight: 600; color: #333; line-height: 1.3; height: 36px; overflow: hidden; }
-        .p-weight { font-size: 12px; color: var(--text-light); margin: 4px 0 10px 0; }
-        .p-row { display: flex; justify-content: space-between; align-items: center; }
-        .p-price { font-weight: 800; font-size: 15px; }
+.product img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+}
 
-        .add-btn {
-            background: white;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            padding: 6px 16px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-        .add-btn:hover { background: var(--primary); color: white; }
+.price {
+    color: green;
+    font-weight: bold;
+}
 
-        /* Buttons & Footer */
-        .btn-main {
-            background: var(--primary);
-            color: white;
-            padding: 18px;
-            border-radius: 14px;
-            border: none;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: auto;
-        }
+.stock {
+    font-size: 11px;
+    color: gray;
+}
 
-        /* Floating Cart Bar */
-        #cart-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
-            background: var(--primary);
-            color: white;
-            padding: 14px 20px;
-            border-radius: 14px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(12,131,31,0.4);
-            z-index: 1000;
-            cursor: pointer;
-        }
+button {
+    padding: 5px 8px;
+    border: none;
+    background: #0c831f;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 5px;
+}
 
-        /* Helper */
-        .spacer { height: 120px; }
-    </style>
+/* CART */
+.cart-item {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+}
+
+.total {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* FOOTER */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+    font-size: 12px;
+}
+</style>
 </head>
+
 <body>
 
-<div class="app-wrapper">
-
-    <section class="splash">
-        <div class="logo-icon">🧺</div>
-        <h1 style="font-weight: 900; letter-spacing: -1px; font-size: 36px;">Farmer Cart</h1>
-        <p style="opacity: 0.8; font-weight: 500;">Fresh Veggies in 10 Mins</p>
-        <p style="margin-top: 50px; font-size: 12px; color: #555; animation: bounce 2s infinite;">SCROLL DOWN TO START ↓</p>
-    </section>
-
-    <section id="lang-section">
-        <h2 style="margin-bottom: 20px;">Select Language</h2>
-        <div class="lang-card active" onclick="setLang(this)">
-            <div><strong>English</strong><p style="font-size: 12px; color: var(--text-light)">Primary Language</p></div>
-            <span>✔</span>
-        </div>
-        <div class="lang-card" onclick="setLang(this)">
-            <div><strong>Hindi (हिंदी)</strong><p style="font-size: 12px; color: var(--text-light)">हिन्दी भाषा</p></div>
-        </div>
-        <div class="lang-card" onclick="setLang(this)">
-            <div><strong>Marathi (मराठी)</strong><p style="font-size: 12px; color: var(--text-light)">मराठी भाषा</p></div>
-        </div>
-        <button class="btn-main" onclick="navTo('signup-section')">Continue</button>
-    </section>
-
-    <section id="signup-section">
-        <h2 style="margin-bottom: 8px;">Let's Get Started!</h2>
-        <p style="color: var(--text-light); margin-bottom: 30px;">Create an account to start shopping.</p>
-        
-        <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" id="inp-name" placeholder="Enter your name">
-        </div>
-        <div class="form-group">
-            <label>Mobile Number</label>
-            <input type="tel" id="inp-phone" placeholder="+91 00000 00000">
-        </div>
-        <div class="form-group">
-            <label>Email ID</label>
-            <input type="email" id="inp-email" placeholder="example@mail.com">
-        </div>
-
-        <button class="btn-main" onclick="validateAndGo()">Start Shopping</button>
-    </section>
-
-    <section id="store-section" style="padding: 0;">
-        <div class="sticky-nav">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <span style="font-size: 11px; font-weight: 800; color: var(--primary);">DELIVERING TO</span>
-                    <h4 id="display-name" style="font-size: 14px;">User's Home ▾</h4>
-                </div>
-                <div style="font-size: 22px;">🛒</div>
-            </div>
-            <div class="search-container">
-                <span>🔍</span>
-                <input type="text" id="searchBar" onkeyup="searchItems()" placeholder="Search 'Onion' or 'Tomato'...">
-            </div>
-        </div>
-
-        <div style="padding: 15px;">
-            <h3 style="margin-bottom: 15px;">Seasonal Vegetables</h3>
-            <div class="product-grid" id="mainGrid">
-                </div>
-        </div>
-        <div class="spacer"></div>
-    </section>
-
+<!-- SPLASH SCREEN -->
+<div class="phone">
+    <div class="splash">
+        🌾 FarmDirect
+    </div>
 </div>
 
-<div id="cart-bar" onclick="processCheckout()">
-    <div>
-        <span id="cart-items-count">1 Item</span>
-        <div id="cart-total-price" style="font-weight: 800; font-size: 18px;">₹0</div>
+<!-- HOME SCREEN -->
+<div class="phone">
+    <div class="header">FarmDirect</div>
+    <div class="content" id="homeProducts">
+        <div class="banner">⚡ Fresh from Nearby Farms (6–24 hrs)</div>
     </div>
-    <div style="font-weight: 700; display: flex; align-items: center;">
-        Next ➜
+    <div class="footer">
+        <div>🏠 Home</div>
+        <div>🛒 Cart</div>
+        <div>👤 Profile</div>
     </div>
+</div>
+
+<!-- PRODUCT SCREEN -->
+<div class="phone">
+    <div class="header">Product Details</div>
+    <div class="content">
+        <img src="https://images.unsplash.com/photo-1582281298055-e25b84a30b0b" style="width:100%; border-radius:10px;">
+        <h3>Tomatoes</h3>
+        <p class="price">₹32/kg</p>
+        <p>Farmer: Ramesh (Nashik)</p>
+        <p class="stock">Stock: 10kg nearby</p>
+        <button>Add to Cart</button>
+    </div>
+</div>
+
+<!-- CART SCREEN -->
+<div class="phone">
+    <div class="header">Cart</div>
+    <div class="content" id="cartItems"></div>
+    <div class="content total">Total: ₹<span id="total">0</span></div>
 </div>
 
 <script>
-    // Database
-    const productData = [
-        { id: 1, name: "Fresh Red Tomato", qty: "500 g", price: 35, img: "https://cdn-icons-png.flaticon.com/512/1202/1202125.png" },
-        { id: 2, name: "Organic Onion", qty: "1 kg", price: 48, img: "https://cdn-icons-png.flaticon.com/512/7230/7230868.png" },
-        { id: 3, name: "White Potato", qty: "1 kg", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1135/1135544.png" },
-        { id: 4, name: "Green Chili", qty: "100 g", price: 15, img: "https://cdn-icons-png.flaticon.com/512/2324/2324631.png" },
-        { id: 5, name: "Carrot (Gajar)", qty: "500 g", price: 45, img: "https://cdn-icons-png.flaticon.com/512/2224/2224115.png" },
-        { id: 6, name: "Cauliflower", qty: "1 pc", price: 60, img: "https://cdn-icons-png.flaticon.com/512/2324/2324508.png" },
-        { id: 7, name: "Fresh Ginger", qty: "250 g", price: 55, img: "https://cdn-icons-png.flaticon.com/512/2909/2909772.png" },
-        { id: 8, name: "Garlic Bundle", qty: "100 g", price: 40, img: "https://cdn-icons-png.flaticon.com/512/1041/1041344.png" }
-    ];
+const products = [
+{
+name:"Tomatoes",
+price:30,
+farmer:"Ramesh (Nashik)",
+stock:10,
+img:"https://images.unsplash.com/photo-1582281298055-e25b84a30b0b"
+},
+{
+name:"Potatoes",
+price:20,
+farmer:"Suresh (Pune)",
+stock:8,
+img:"https://images.unsplash.com/photo-1582515073490-dc43e1c7d1b7"
+},
+{
+name:"Carrots",
+price:25,
+farmer:"Anita (Satara)",
+stock:5,
+img:"https://images.unsplash.com/photo-1447175008436-170170d0d3e0"
+},
+{
+name:"Onions",
+price:22,
+farmer:"Mahesh (Ahmednagar)",
+stock:12,
+img:"https://images.unsplash.com/photo-1587049352846-4a222e784d38"
+}
+];
 
-    let cart = [];
+let cart = [];
 
-    // Navigation
-    function navTo(id) {
-        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    }
+function loadProducts(){
+    let html = "";
+    products.forEach((p,i)=>{
+        let dynamicPrice = p.price + Math.floor(Math.random()*5);
 
-    function setLang(el) {
-        document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
-        el.classList.add('active');
-    }
-
-    // Form Validation & Interaction
-    function validateAndGo() {
-        const name = document.getElementById('inp-name').value;
-        const phone = document.getElementById('inp-phone').value;
-
-        if (name.length < 3) {
-            alert("Please enter your full name");
-            return;
-        }
-        if (phone.length < 10) {
-            alert("Please enter a valid phone number");
-            return;
-        }
-
-        document.getElementById('display-name').innerText = name + " ▾";
-        navTo('store-section');
-    }
-
-    // Load Products
-    function loadStore(items) {
-        const grid = document.getElementById('mainGrid');
-        grid.innerHTML = items.map(p => `
-            <div class="product-card">
-                <img src="${p.img}" class="p-img">
-                <div class="p-name">${p.name}</div>
-                <div class="p-weight">${p.qty}</div>
-                <div class="p-row">
-                    <span class="p-price">₹${p.price}</span>
-                    <button class="add-btn" onclick="addToCart(${p.id})">ADD</button>
-                </div>
+        html += `
+        <div class="product">
+            <img src="${p.img}">
+            <div>
+                <b>${p.name}</b><br>
+                <span class="price">₹${dynamicPrice}</span><br>
+                <small>${p.farmer}</small><br>
+                <span class="stock">${p.stock}kg nearby</span><br>
+                <button onclick="addToCart('${p.name}',${dynamicPrice})">Add</button>
             </div>
-        `).join('');
-    }
+        </div>`;
+    });
 
-    // Search Logic
-    function searchItems() {
-        const term = document.getElementById('searchBar').value.toLowerCase();
-        const filtered = productData.filter(p => p.name.toLowerCase().includes(term));
-        loadStore(filtered);
-    }
+    document.getElementById("homeProducts").innerHTML += html;
+}
 
-    // Cart Logic
-    function addToCart(id) {
-        const p = productData.find(x => x.id === id);
-        cart.push(p);
-        
-        const bar = document.getElementById('cart-bar');
-        const countTxt = document.getElementById('cart-items-count');
-        const priceTxt = document.getElementById('cart-total-price');
+function addToCart(name,price){
+    cart.push({name,price});
+    updateCart();
+}
 
-        bar.style.display = 'flex';
-        countTxt.innerText = cart.length + (cart.length > 1 ? " Items" : " Item");
-        
-        const total = cart.reduce((sum, item) => sum + item.price, 0);
-        priceTxt.innerText = "₹" + total;
-    }
+function updateCart(){
+    let html = "";
+    let total = 0;
 
-    function processCheckout() {
-        const total = cart.reduce((sum, item) => sum + item.price, 0);
-        alert(`🎉 ORDER PLACED!\n\nThank you ${document.getElementById('inp-name').value}.\nYour bill of ₹${total} is confirmed.\nDelivery in 10 minutes.`);
-        
-        // Reset Cart
-        cart = [];
-        document.getElementById('cart-bar').style.display = 'none';
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
+    cart.forEach(item=>{
+        total += item.price;
+        html += `<div class="cart-item">${item.name} - ₹${item.price}</div>`;
+    });
 
-    // Init
-    loadStore(productData);
+    document.getElementById("cartItems").innerHTML = html;
+    document.getElementById("total").innerText = total;
+}
+
+loadProducts();
 </script>
 
 </body>
