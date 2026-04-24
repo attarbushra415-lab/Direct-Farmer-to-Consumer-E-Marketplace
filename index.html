@@ -8,32 +8,27 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   background: #f5f5f5;
-  transition: 0.3s;
 }
 
 header {
   background: #2e7d32;
   color: white;
-  padding: 15px;
   text-align: center;
+  padding: 15px;
 }
 
 nav {
+  background: #388e3c;
   display: flex;
   justify-content: center;
-  background: #388e3c;
 }
 
 nav a {
   color: white;
-  padding: 14px 20px;
+  padding: 10px 20px;
   text-decoration: none;
-}
-
-nav a:hover {
-  background: #1b5e20;
 }
 
 .top-bar {
@@ -41,20 +36,10 @@ nav a:hover {
   padding: 15px;
 }
 
-input {
-  padding: 10px;
-  width: 60%;
-}
-
-button {
-  padding: 10px;
-  cursor: pointer;
-}
-
 .hero {
   text-align: center;
   padding: 40px;
-  background: url('https://source.unsplash.com/1200x400/?farm,agriculture') no-repeat center/cover;
+  background: url('https://source.unsplash.com/1200x400/?farm') no-repeat center/cover;
   color: white;
 }
 
@@ -69,7 +54,6 @@ button {
   background: white;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   text-align: center;
   transition: 0.3s;
 }
@@ -80,10 +64,15 @@ button {
 
 .card img {
   width: 100%;
-  border-radius: 10px;
 }
 
-.cart {
+button {
+  padding: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.cart-btn {
   position: fixed;
   top: 10px;
   right: 10px;
@@ -93,16 +82,22 @@ button {
   color: white;
 }
 
+.cart-modal {
+  display: none;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px gray;
+}
+
 .dark {
   background: #121212;
   color: white;
-}
-
-footer {
-  background: #2e7d32;
-  color: white;
-  text-align: center;
-  padding: 10px;
 }
 </style>
 
@@ -111,94 +106,120 @@ footer {
 <body>
 
 <header>
-  <h2>🌾 Farmer to Consumer Marketplace</h2>
+<h2>🌾 Farmer Marketplace</h2>
 </header>
 
 <nav>
-  <a href="#">Home</a>
-  <a href="#">Products</a>
-  <a href="#">Contact</a>
+<a href="#">Home</a>
+<a href="#">Products</a>
 </nav>
 
 <div class="top-bar">
-  <input type="text" placeholder="Search products..." onkeyup="searchProduct(this.value)">
-  <button onclick="toggleDark()">🌙 Dark Mode</button>
+<input type="text" placeholder="Search..." onkeyup="searchProduct(this.value)">
+<button onclick="toggleDark()">🌙</button>
 </div>
 
-<div class="cart">
-  🛒 Cart: <span id="cart-count">0</span>
+<div class="cart-btn" onclick="openCart()">
+🛒 <span id="count">0</span>
+</div>
+
+<div class="cart-modal" id="cartModal">
+<h3>Your Cart</h3>
+<ul id="cartItems"></ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="closeCart()">Close</button>
 </div>
 
 <section class="hero">
-  <h1>Fresh Products Direct from Farmers</h1>
-  <p>No middleman • Better prices • Fresh quality</p>
+<h1>Fresh Products</h1>
 </section>
 
 <section class="products">
 
 <div class="card">
-  <img src="https://source.unsplash.com/300x200/?tomato">
-  <h3>Tomatoes</h3>
-  <p>₹30/kg</p>
-  <button onclick="addToCart('Tomatoes',30)">Add to Cart</button>
+<img src="https://source.unsplash.com/300x200/?tomato">
+<h3>Tomatoes</h3>
+<p>₹30</p>
+<button onclick="addToCart('Tomatoes',30)">Add</button>
 </div>
 
 <div class="card">
-  <img src="https://source.unsplash.com/300x200/?potato">
-  <h3>Potatoes</h3>
-  <p>₹20/kg</p>
-  <button onclick="addToCart('Potatoes',20)">Add to Cart</button>
+<img src="https://source.unsplash.com/300x200/?potato">
+<h3>Potatoes</h3>
+<p>₹20</p>
+<button onclick="addToCart('Potatoes',20)">Add</button>
 </div>
 
 <div class="card">
-  <img src="https://source.unsplash.com/300x200/?carrot">
-  <h3>Carrots</h3>
-  <p>₹40/kg</p>
-  <button onclick="addToCart('Carrots',40)">Add to Cart</button>
+<img src="https://source.unsplash.com/300x200/?carrot">
+<h3>Carrots</h3>
+<p>₹40</p>
+<button onclick="addToCart('Carrots',40)">Add</button>
 </div>
 
 <div class="card">
-  <img src="https://source.unsplash.com/300x200/?onion">
-  <h3>Onions</h3>
-  <p>₹25/kg</p>
-  <button onclick="addToCart('Onions',25)">Add to Cart</button>
+<img src="https://source.unsplash.com/300x200/?onion">
+<h3>Onions</h3>
+<p>₹25</p>
+<button onclick="addToCart('Onions',25)">Add</button>
 </div>
 
 </section>
-
-<section style="text-align:center; padding:20px;">
-  <h2>Contact Us</h2>
-  <p>Email: farmer@market.com</p>
-  <p>Phone: +91 1234567890</p>
-</section>
-
-<footer>
-  <p>© 2026 Farmer Marketplace</p>
-</footer>
 
 <script>
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-function addToCart(product, price){
-  cart.push({product, price});
-  document.getElementById("cart-count").innerText = cart.length;
-  alert(product + " added to cart");
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function searchProduct(value){
-  let cards = document.querySelectorAll('.card');
+function updateCartUI() {
+  document.getElementById("count").innerText = cart.length;
+
+  let list = document.getElementById("cartItems");
+  let total = 0;
+  list.innerHTML = "";
+
+  cart.forEach((item, index) => {
+    total += item.price;
+    list.innerHTML += `<li>${item.name} - ₹${item.price} <button onclick="removeItem(${index})">X</button></li>`;
+  });
+
+  document.getElementById("total").innerText = total;
+}
+
+function addToCart(name, price) {
+  cart.push({name, price});
+  saveCart();
+  updateCartUI();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  saveCart();
+  updateCartUI();
+}
+
+function openCart() {
+  document.getElementById("cartModal").style.display = "block";
+}
+
+function closeCart() {
+  document.getElementById("cartModal").style.display = "none";
+}
+
+function searchProduct(val) {
+  let cards = document.querySelectorAll(".card");
   cards.forEach(card => {
-    if(card.innerText.toLowerCase().includes(value.toLowerCase())){
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
+    card.style.display = card.innerText.toLowerCase().includes(val.toLowerCase()) ? "block" : "none";
   });
 }
 
-function toggleDark(){
+function toggleDark() {
   document.body.classList.toggle("dark");
 }
+
+updateCartUI();
 </script>
 
 </body>
