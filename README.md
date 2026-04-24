@@ -1,257 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GreenRoot Marketplace</title>
-  <style>
-    :root {
-      --primary-green: #1b5e20;
-      --soft-green: #e8f5e9;
-      --accent-orange: #ff9800;
-      --text-main: #333;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #fcfcfc;
-      color: var(--text-main);
-    }
-
-    /* Navigation */
-    nav {
-      background: white;
-      padding: 1rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--primary-green);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .cart-box {
-      background: var(--primary-green);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 50px;
-      font-weight: 600;
-    }
-
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                  url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80');
-      background-size: cover;
-      background-position: center;
-      height: 350px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
-    }
-
-    /* Filter Buttons */
-    .filters {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      padding: 2rem;
-    }
-
-    .filter-btn {
-      border: 1px solid var(--primary-green);
-      background: transparent;
-      padding: 8px 20px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--primary-green);
-      color: white;
-    }
-
-    /* Product Grid */
-    .market-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 50px 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .product-card {
-      background: white;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-card:hover {
-      transform: translateY(-8px);
-    }
-
-    .product-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      background-color: #eee;
-    }
-
-    .info {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .info h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
-    
-    .price-tag {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: var(--primary-green);
-      margin-bottom: 15px;
-    }
-
-    .add-btn {
-      background: var(--primary-green);
-      color: white;
-      border: none;
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .add-btn:active { transform: scale(0.95); }
-
-    footer {
-      background: #111;
-      color: #777;
-      text-align: center;
-      padding: 40px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmFresh | Direct from Farm to Table</title>
+    <script src="https://tailwindcss.com"></script>
+    <link href="https://cloudflare.com" rel="stylesheet">
+    <style>
+        @import url('https://googleapis.com');
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
 </head>
-<body>
+<body class="bg-gray-50">
 
-<nav>
-  <div class="logo">🌿 GreenRoot</div>
-  <div class="cart-box">🛒 Cart: <span id="cart-qty">0</span></div>
-</nav>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-green-600 flex items-center">
+                <i class="fas fa-leaf mr-2"></i>FarmFresh
+            </a>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#home" class="hover:text-green-600 transition">Home</a>
+                <a href="#products" class="hover:text-green-600 transition">Shop</a>
+                <a href="#farmers" class="hover:text-green-600 transition">Our Farmers</a>
+                <a href="#" class="hover:text-green-600 transition">About</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="relative">
+                    <i class="fas fa-shopping-basket text-xl text-gray-700"></i>
+                    <span class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full px-1.5">3</span>
+                </button>
+                <button class="bg-green-600 text-white px-5 py-2 rounded-full hover:bg-green-700 transition">Login</button>
+            </div>
+        </div>
+    </nav>
 
-<section class="hero">
-  <h1>Fresh From The Soil</h1>
-  <p>Support your local farmers, eat healthy, live better.</p>
-</section>
+    <!-- Hero Section -->
+    <header id="home" class="relative h-[500px] flex items-center justify-center text-white">
+        <img src="https://unsplash.com" 
+             class="absolute inset-0 w-full h-full object-cover brightness-50" alt="Farm land">
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Freshness Delivered <br> Directly from the Soil</h1>
+            <p class="text-lg md:text-xl mb-8">Support local farmers and get 100% organic produce at your doorstep.</p>
+            <a href="#products" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold text-lg transition">Shop Fresh Produce</a>
+        </div>
+    </header>
 
-<div class="filters">
-  <button class="filter-btn active">All</button>
-  <button class="filter-btn">Vegetables</button>
-  <button class="filter-btn">Fruits</button>
-  <button class="filter-btn">Organic Dairy</button>
-</div>
+    <!-- Product Section -->
+    <section id="products" class="container mx-auto px-6 py-16">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-800">Season's Best</h2>
+                <p class="text-gray-600">Harvested today, delivered tomorrow.</p>
+            </div>
+            <button class="text-green-600 font-semibold border-b-2 border-green-600">View All</button>
+        </div>
 
-<main class="market-container">
-  <div class="product-card">
-    <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=500&q=80" alt="Fresh Tomatoes">
-    <div class="info">
-      <h3>Vine-Ripened Tomatoes</h3>
-      <div class="price-tag">₹45/kg</div>
-      <button class="add-btn" onclick="updateCart()">Add to Cart</button>
-    </div>
-  </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Product 1 -->
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition p-4 border">
+                <img src="https://unsplash.com" alt="Tomatoes" class="w-full h-48 object-cover rounded-lg mb-4">
+                <span class="text-xs font-bold text-green-600 uppercase tracking-widest">Organic</span>
+                <h3 class="text-lg font-bold text-gray-800">Fresh Cherry Tomatoes</h3>
+                <p class="text-sm text-gray-500 mb-4">Grown by: Green Valley Farm</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$4.50 / kg</span>
+                    <button class="bg-green-100 p-2 rounded-full text-green-600 hover:bg-green-600 hover:text-white transition">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
 
-  <div class="product-card">
-    <img src="https://images.unsplash.com/photo-1568584711075-3d021a7c3ec3?auto=format&fit=crop&w=500&q=80" alt="Cauliflower">
-    <div class="info">
-      <h3>Organic Cauliflower</h3>
-      <div class="price-tag">₹35/unit</div>
-      <button class="add-btn" onclick="updateCart()">Add to Cart</button>
-    </div>
-  </div>
+            <!-- Product 2 -->
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition p-4 border">
+                <img src="https://unsplash.com" alt="Carrots" class="w-full h-48 object-cover rounded-lg mb-4">
+                <span class="text-xs font-bold text-green-600 uppercase tracking-widest">Pesticide Free</span>
+                <h3 class="text-lg font-bold text-gray-800">Mountain Carrots</h3>
+                <p class="text-sm text-gray-500 mb-4">Grown by: John's Organic Acres</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$3.20 / kg</span>
+                    <button class="bg-green-100 p-2 rounded-full text-green-600 hover:bg-green-600 hover:text-white transition">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
 
-  <div class="product-card">
-    <img src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=500&q=80" alt="Mangoes">
-    <div class="info">
-      <h3>Alphonso Mangoes</h3>
-      <div class="price-tag">₹600/box</div>
-      <button class="add-btn" onclick="updateCart()">Add to Cart</button>
-    </div>
-  </div>
+            <!-- Product 3 -->
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition p-4 border">
+                <img src="https://unsplash.com" alt="Avocado" class="w-full h-48 object-cover rounded-lg mb-4">
+                <span class="text-xs font-bold text-green-600 uppercase tracking-widest">Premium</span>
+                <h3 class="text-lg font-bold text-gray-800">Hass Avocado</h3>
+                <p class="text-sm text-gray-500 mb-4">Grown by: Sun-Kissed Orchards</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$2.00 / pc</span>
+                    <button class="bg-green-100 p-2 rounded-full text-green-600 hover:bg-green-600 hover:text-white transition">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
 
-  <div class="product-card">
-    <img src="https://images.unsplash.com/photo-1537640538966-79f369b41f8f?auto=format&fit=crop&w=500&q=80" alt="Grapes">
-    <div class="info">
-      <h3>Seedless Grapes</h3>
-      <div class="price-tag">₹120/kg</div>
-      <button class="add-btn" onclick="updateCart()">Add to Cart</button>
-    </div>
-  </div>
+            <!-- Product 4 -->
+            <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition p-4 border">
+                <img src="https://unsplash.com" alt="Spinach" class="w-full h-48 object-cover rounded-lg mb-4">
+                <span class="text-xs font-bold text-green-600 uppercase tracking-widest">Local</span>
+                <h3 class="text-lg font-bold text-gray-800">Baby Spinach</h3>
+                <p class="text-sm text-gray-500 mb-4">Grown by: Rooted Family Farm</p>
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-gray-900">$2.50 / bag</span>
+                    <button class="bg-green-100 p-2 rounded-full text-green-600 hover:bg-green-600 hover:text-white transition">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div class="product-card">
-    <img src="https://images.unsplash.com/photo-1516448424440-272e293a38f7?auto=format&fit=crop&w=500&q=80" alt="Farm Eggs">
-    <div class="info">
-      <h3>Farm-Fresh Eggs</h3>
-      <div class="price-tag">₹80/dozen</div>
-      <button class="add-btn" onclick="updateCart()">Add to Cart</button>
-    </div>
-  </div>
+    <!-- Meet the Farmers -->
+    <section id="farmers" class="bg-green-50 py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Know Your Farmer</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <img src="https://unsplash.com" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg object-cover">
+                    <h4 class="text-xl font-bold">Farmer Robert</h4>
+                    <p class="text-gray-600 italic">"30 years of growing organic berries in Oregon."</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://unsplash.com" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg object-cover">
+                    <h4 class="text-xl font-bold">Farmer Maria</h4>
+                    <p class="text-gray-600 italic">"Specializes in heritage vegetables and soil health."</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://unsplash.com" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg object-cover">
+                    <h4 class="text-xl font-bold">The Patel Family</h4>
+                    <p class="text-gray-600 italic">"Providing pesticide-free greens to the community."</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <div class="product-card">
-    <img src="https://images.unsplash.com/photo-1528750955925-53f5a173752c?auto=format&fit=crop&w=500&q=80" alt="Milk">
-    <div class="info">
-      <h3>Pure Buffalo Milk</h3>
-      <div class="price-tag">₹70/L</div>
-      <button class="add-btn" onclick="updateCart()">Add to Cart</button>
-    </div>
-  </div>
-</main>
-
-<footer>
-  <p>© 2026 GreenRoot Farmer Marketplace</p>
-  <p>Hand-picked quality guaranteed.</p>
-</footer>
-
-<script>
-  let count = 0;
-  function updateCart() {
-    count++;
-    document.getElementById('cart-qty').innerText = count;
-    
-    // Visual confirmation
-    const btn = event.target;
-    btn.innerText = "Added!";
-    btn.style.backgroundColor = "#ff9800";
-    
-    setTimeout(() => {
-      btn.innerText = "Add to Cart";
-      btn.style.backgroundColor = "#1b5e20";
-    }, 800);
-  }
-</script>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12 px-6">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-2xl font-bold text-white mb-4">FarmFresh</h3>
+                <p>Empowering local farmers by connecting them directly with you.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Company</h4>
+                <ul>
+                    <li><a href="#" class="hover:text-green-400">Our Story</a></li>
+                    <li><a href="#" class="hover:text-green-400">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-green-400">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Support</h4>
+                <ul>
+                    <li><a href="#" class="hover:text-green-400">FAQs</a></li>
+                    <li><a href="#" class="hover:text-green-400">Shipping Info</a></li>
+                    <li><a href="#" class="hover:text-green-400">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Newsletter</h4>
+                <div class="flex">
+                    <input type="email" placeholder="Email" class="p-2 rounded-l-md w-full text-gray-800">
+                    <button class="bg-green-600 px-4 py-2 rounded-r-md hover:bg-green-700">Join</button>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-12 border-t border-gray-700 pt-8">
+            <p>&copy; 2023 FarmFresh Marketplace. All rights reserved.</p>
+        </div>
+    </footer>
 
 </body>
 </html>
+
 
 
