@@ -3,245 +3,264 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FarmDirect Premium UI</title>
+<title>FarmDirect Pro</title>
 
 <style>
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #eaeaea;
-    display: flex;
-    gap: 20px;
-    padding: 20px;
+  margin:0;
+  font-family: Arial;
+  background:#e8f5e9;
 }
 
-/* PHONE FRAME */
-.phone {
-    width: 260px;
-    height: 540px;
-    background: #fff;
-    border-radius: 30px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    overflow: hidden;
-    position: relative;
+/* 🌿 HERO LOGIN SCREEN */
+.login {
+  height:100vh;
+  background:
+  linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+  url("https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1200");
+  background-size:cover;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:white;
+  text-align:center;
+  padding:20px;
 }
 
-/* HEADER */
-.header {
-    background: #0c831f;
-    color: white;
-    padding: 12px;
-    text-align: center;
-    font-weight: bold;
+.login h1 {
+  font-size:26px;
+  margin-bottom:5px;
 }
 
-/* SPLASH */
-.splash {
-    background: url('https://images.unsplash.com/photo-1542838132-92c53300491e');
-    background-size: cover;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    text-shadow: 0 2px 5px black;
+.login p {
+  font-size:13px;
+  opacity:0.9;
 }
 
-/* HOME */
-.content {
-    padding: 10px;
-    overflow-y: auto;
-    height: 100%;
+/* LOGIN BOX */
+.box {
+  background:rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  padding:20px;
+  border-radius:15px;
+  margin-top:15px;
+  width:260px;
 }
 
-.banner {
-    background: #f7d54d;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-/* PRODUCTS */
-.product {
-    display: flex;
-    gap: 10px;
-    background: #fafafa;
-    margin-bottom: 10px;
-    padding: 8px;
-    border-radius: 10px;
-}
-
-.product img {
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-}
-
-.price {
-    color: green;
-    font-weight: bold;
-}
-
-.stock {
-    font-size: 11px;
-    color: gray;
+input, select {
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+  border:none;
+  border-radius:8px;
 }
 
 button {
-    padding: 5px 8px;
-    border: none;
-    background: #0c831f;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 5px;
+  width:100%;
+  padding:10px;
+  background:#2e7d32;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+button:hover {
+  background:#1b5e20;
+}
+
+/* APP */
+.app {
+  display:none;
+}
+
+.header {
+  background:#1b5e20;
+  color:white;
+  padding:12px;
+  text-align:center;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  padding:10px;
+}
+
+.card {
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 3px 8px rgba(0,0,0,0.2);
+  transition:0.3s;
+}
+
+.card:hover {
+  transform:scale(1.04);
+}
+
+.card img {
+  width:100%;
+  height:110px;
+  object-fit:cover;
+}
+
+.card-body {
+  padding:8px;
 }
 
 /* CART */
-.cart-item {
-    border-bottom: 1px solid #ddd;
-    padding: 5px 0;
+.cart, .payment, .dashboard {
+  margin:10px;
+  padding:10px;
+  background:white;
+  border-radius:10px;
 }
 
-.total {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-/* FOOTER */
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: #fff;
-    border-top: 1px solid #ddd;
-    display: flex;
-    justify-content: space-around;
-    padding: 8px 0;
-    font-size: 12px;
-}
 </style>
 </head>
 
 <body>
 
-<!-- SPLASH SCREEN -->
-<div class="phone">
-    <div class="splash">
-        🌾 FarmDirect
-    </div>
+<!-- 🌿 LOGIN HERO PAGE -->
+<div class="login" id="loginBox">
+
+<h1>🌾 Direct Farmer to Consumer</h1>
+<p>Fresh farm produce directly from farmers to your home 🚜</p>
+
+<div class="box">
+  <input id="user" placeholder="Enter Name">
+
+  <select id="role">
+    <option value="customer">Customer</option>
+    <option value="farmer">Farmer</option>
+  </select>
+
+  <button onclick="login()">Enter Marketplace</button>
 </div>
 
-<!-- HOME SCREEN -->
-<div class="phone">
-    <div class="header">FarmDirect</div>
-    <div class="content" id="homeProducts">
-        <div class="banner">⚡ Fresh from Nearby Farms (6–24 hrs)</div>
-    </div>
-    <div class="footer">
-        <div>🏠 Home</div>
-        <div>🛒 Cart</div>
-        <div>👤 Profile</div>
-    </div>
 </div>
 
-<!-- PRODUCT SCREEN -->
-<div class="phone">
-    <div class="header">Product Details</div>
-    <div class="content">
-        <img src="https://images.unsplash.com/photo-1582281298055-e25b84a30b0b" style="width:100%; border-radius:10px;">
-        <h3>Tomatoes</h3>
-        <p class="price">₹32/kg</p>
-        <p>Farmer: Ramesh (Nashik)</p>
-        <p class="stock">Stock: 10kg nearby</p>
-        <button>Add to Cart</button>
-    </div>
+<!-- APP -->
+<div class="app" id="app">
+
+<div class="header">🌾 FarmDirect Pro</div>
+
+<!-- FARMER DASHBOARD -->
+<div class="dashboard" id="dashboard" style="display:none;">
+<h3>👨‍🌾 Farmer Dashboard</h3>
+<p>Manage your farm products easily</p>
+<button onclick="addDummyProduct()">Add Product</button>
 </div>
 
-<!-- CART SCREEN -->
-<div class="phone">
-    <div class="header">Cart</div>
-    <div class="content" id="cartItems"></div>
-    <div class="content total">Total: ₹<span id="total">0</span></div>
+<!-- PRODUCTS -->
+<div class="grid" id="products"></div>
+
+<!-- CART -->
+<div class="cart">
+<h3>🛒 Cart</h3>
+<div id="cart"></div>
+<p>Total: ₹<span id="total"></span></p>
+<button onclick="openPayment()">Checkout</button>
+</div>
+
+<!-- PAYMENT -->
+<div class="payment" id="payment" style="display:none;">
+<h3>💳 Razorpay Payment (UI)</h3>
+<input placeholder="Enter UPI ID">
+<button onclick="pay()">Pay Now</button>
+</div>
+
 </div>
 
 <script>
-const products = [
-{
-name:"Tomatoes",
-price:30,
-farmer:"Ramesh (Nashik)",
-stock:10,
-img:"https://images.unsplash.com/photo-1582281298055-e25b84a30b0b"
-},
-{
-name:"Potatoes",
-price:20,
-farmer:"Suresh (Pune)",
-stock:8,
-img:"https://images.unsplash.com/photo-1582515073490-dc43e1c7d1b7"
-},
-{
-name:"Carrots",
-price:25,
-farmer:"Anita (Satara)",
-stock:5,
-img:"https://images.unsplash.com/photo-1447175008436-170170d0d3e0"
-},
-{
-name:"Onions",
-price:22,
-farmer:"Mahesh (Ahmednagar)",
-stock:12,
-img:"https://images.unsplash.com/photo-1587049352846-4a222e784d38"
-}
+
+let user="", role="";
+let cart=[];
+
+let products=[
+ {name:"Tomato",price:30,img:"https://images.unsplash.com/photo-1607305387299-a3d9611cd469?w=600"},
+ {name:"Potato",price:25,img:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=600"},
+ {name:"Onion",price:20,img:"https://images.unsplash.com/photo-1508747703725-719777637510?w=600"}
 ];
 
-let cart = [];
+/* LOGIN */
+function login(){
+  user=document.getElementById("user").value;
+  role=document.getElementById("role").value;
 
-function loadProducts(){
-    let html = "";
-    products.forEach((p,i)=>{
-        let dynamicPrice = p.price + Math.floor(Math.random()*5);
+  document.getElementById("loginBox").style.display="none";
+  document.getElementById("app").style.display="block";
 
-        html += `
-        <div class="product">
-            <img src="${p.img}">
-            <div>
-                <b>${p.name}</b><br>
-                <span class="price">₹${dynamicPrice}</span><br>
-                <small>${p.farmer}</small><br>
-                <span class="stock">${p.stock}kg nearby</span><br>
-                <button onclick="addToCart('${p.name}',${dynamicPrice})">Add</button>
-            </div>
-        </div>`;
-    });
+  if(role==="farmer"){
+    document.getElementById("dashboard").style.display="block";
+  }
 
-    document.getElementById("homeProducts").innerHTML += html;
+  render();
 }
 
-function addToCart(name,price){
-    cart.push({name,price});
-    updateCart();
+/* PRODUCTS */
+function render(){
+  let html="";
+
+  products.forEach((p,i)=>{
+    html+=`
+    <div class="card">
+      <img src="${p.img}">
+      <div class="card-body">
+        <h4>${p.name}</h4>
+        <p>₹${p.price}</p>
+        <button onclick="addCart(${i})">Add to Cart</button>
+      </div>
+    </div>`;
+  });
+
+  document.getElementById("products").innerHTML=html;
+  updateCart();
+}
+
+/* CART */
+function addCart(i){
+  cart.push(products[i]);
+  updateCart();
 }
 
 function updateCart(){
-    let html = "";
-    let total = 0;
+  let html="";
+  let total=0;
 
-    cart.forEach(item=>{
-        total += item.price;
-        html += `<div class="cart-item">${item.name} - ₹${item.price}</div>`;
-    });
+  cart.forEach(c=>{
+    total+=c.price;
+    html+=`<p>${c.name} - ₹${c.price}</p>`;
+  });
 
-    document.getElementById("cartItems").innerHTML = html;
-    document.getElementById("total").innerText = total;
+  document.getElementById("cart").innerHTML=html;
+  document.getElementById("total").innerText=total;
 }
 
-loadProducts();
+/* PAYMENT */
+function openPayment(){
+  document.getElementById("payment").style.display="block";
+}
+
+function pay(){
+  alert("Payment Successful (Mock Razorpay)");
+  cart=[];
+  updateCart();
+}
+
+/* FARMER ADD */
+function addDummyProduct(){
+  products.push({
+    name:"New Crop",
+    price:40,
+    img:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600"
+  });
+  render();
+}
+
 </script>
 
 </body>
