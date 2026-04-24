@@ -1,231 +1,260 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farmer Marketplace</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer Marketplace | Fresh & Direct</title>
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --secondary: #388e3c;
+      --accent: #ffa000;
+      --dark: #1b5e20;
+      --light: #f5f5f5;
+    }
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #f5f5f5;
-}
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--light);
+      color: #333;
+    }
 
-header {
-  background: #2e7d32;
-  color: white;
-  padding: 15px;
-  text-align: center;
-}
+    /* Header & Navigation */
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  background: #388e3c;
-  padding: 0 20px;
-}
+    .cart-status {
+      position: absolute;
+      right: 20px;
+      top: 25px;
+      background: var(--accent);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
 
-nav a {
-  color: white;
-  padding: 14px;
-  text-decoration: none;
-}
+    nav {
+      display: flex;
+      justify-content: center;
+      background: var(--secondary);
+      flex-wrap: wrap;
+    }
 
-nav a:hover {
-  background: #1b5e20;
-}
+    nav a {
+      color: white;
+      padding: 14px 25px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
 
-#cart {
-  font-weight: bold;
-}
+    nav a:hover {
+      background: var(--dark);
+    }
 
-.hero {
-  text-align: center;
-  padding: 40px;
-  background: url('https://images.unsplash.com/photo-1500595046743-cd271d694d30') no-repeat center/cover;
-  color: white;
-}
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                  url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=1470') no-repeat center/cover;
+      color: white;
+    }
 
-.search-box {
-  text-align: center;
-  margin: 20px;
-}
+    .search-container {
+      margin-top: 20px;
+    }
 
-.search-box input {
-  padding: 10px;
-  width: 250px;
-}
+    .search-container input {
+      padding: 12px;
+      width: 300px;
+      border-radius: 25px;
+      border: none;
+      outline: none;
+    }
 
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
+    /* Grid Layout */
+    .section-title {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--primary);
+    }
 
-.card {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-.card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 10px;
-}
+    /* Product Cards */
+    .card {
+      background: white;
+      padding: 0 0 20px 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
 
-button {
-  background: #2e7d32;
-  color: white;
-  border: none;
-  padding: 10px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
+    .card:hover {
+      transform: translateY(-5px);
+    }
 
-button:hover {
-  background: #1b5e20;
-}
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
 
-.cart-box {
-  padding: 20px;
-  background: white;
-  margin: 20px;
-  border-radius: 10px;
-}
+    .card h3 {
+      margin: 15px 0 5px 0;
+    }
 
-footer {
-  background: #2e7d32;
-  color: white;
-  text-align: center;
-  padding: 10px;
-}
-</style>
+    .price {
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    .card button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      cursor: pointer;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .card button:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 30px;
+      margin-top: 50px;
+    }
+  </style>
 </head>
-
 <body>
 
 <header>
-  <h2>🌾 Farmer Marketplace</h2>
+  <h2>🌾 Farmer Direct</h2>
+  <div class="cart-status">🛒 Cart: <span id="cart-count">0</span></div>
 </header>
 
 <nav>
-  <div>
-    <a href="#">Home</a>
-    <a href="#">Products</a>
-  </div>
-  <div id="cart">🛒 Cart: 0</div>
+  <a href="#">Home</a>
+  <a href="#">Vegetables</a>
+  <a href="#">Fruits</a>
+  <a href="#">Dairy & Eggs</a>
+  <a href="#">Contact</a>
 </nav>
 
 <section class="hero">
-  <h1>Fresh Products Direct from Farmers</h1>
+  <h1>Fresh Harvest, Zero Intermediaries</h1>
+  <p>Supporting local farmers, delivering health to your doorstep.</p>
+  <div class="search-container">
+    <input type="text" placeholder="Search for organic produce...">
+  </div>
 </section>
 
-<div class="search-box">
-  <input type="text" id="search" placeholder="Search products..." onkeyup="searchProduct()">
-</div>
-
-<section class="products" id="productList">
-
-  <!-- Tomatoes -->
-  <div class="card" data-name="tomato">
-    <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=800&q=80">
-    <h3>Tomatoes</h3>
-    <p>₹30/kg</p>
-    <button onclick="addToCart('Tomatoes',30)">Add to Cart</button>
+<h2 class="section-title">Fresh Vegetables</h2>
+<section class="products">
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1597362868429-4948d47afb90?auto=format&fit=crop&q=80&w=600" alt="Bell Peppers">
+    <h3>Organic Bell Peppers</h3>
+    <p class="price">₹60/kg</p>
+    <button onclick="addToCart()">Add to Cart</button>
   </div>
 
-  <!-- Potatoes -->
-  <div class="card" data-name="potato">
-    <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80">
-    <h3>Potatoes</h3>
-    <p>₹20/kg</p>
-    <button onclick="addToCart('Potatoes',20)">Add to Cart</button>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1518977676601-b53f02ac6d31?auto=format&fit=crop&q=80&w=600" alt="Potatoes">
+    <h3>Yukon Gold Potatoes</h3>
+    <p class="price">₹25/kg</p>
+    <button onclick="addToCart()">Add to Cart</button>
   </div>
 
-  <!-- Carrots -->
-  <div class="card" data-name="carrot">
-    <img src="https://images.unsplash.com/photo-1447175008436-054170c2e979?auto=format&fit=crop&w=800&q=80">
-    <h3>Carrots</h3>
-    <p>₹40/kg</p>
-    <button onclick="addToCart('Carrots',40)">Add to Cart</button>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&q=80&w=600" alt="Carrots">
+    <h3>Farm Fresh Carrots</h3>
+    <p class="price">₹45/kg</p>
+    <button onclick="addToCart()">Add to Cart</button>
   </div>
 
-  <!-- Onions -->
-  <div class="card" data-name="onion">
-    <img src="https://images.unsplash.com/photo-1587049352851-8d4e89133924?auto=format&fit=crop&w=800&q=80">
-    <h3>Onions</h3>
-    <p>₹25/kg</p>
-    <button onclick="addToCart('Onions',25)">Add to Cart</button>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1557844352-761f2565b576?auto=format&fit=crop&q=80&w=600" alt="Spinach">
+    <h3>Organic Spinach</h3>
+    <p class="price">₹20/bunch</p>
+    <button onclick="addToCart()">Add to Cart</button>
   </div>
-
 </section>
 
-<div class="cart-box">
-  <h3>🧾 Cart Summary</h3>
-  <ul id="cartItems"></ul>
-  <h4>Total: ₹<span id="total">0</span></h4>
-  <button onclick="checkout()">Checkout</button>
-</div>
+<h2 class="section-title">Fruits & Dairy</h2>
+<section class="products">
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6bccb?auto=format&fit=crop&q=80&w=600" alt="Apples">
+    <h3>Himachal Apples</h3>
+    <p class="price">₹120/kg</p>
+    <button onclick="addToCart()">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1528498033373-3c6c08e93d79?auto=format&fit=crop&q=80&w=600" alt="Bananas">
+    <h3>Organic Bananas</h3>
+    <p class="price">₹50/dozen</p>
+    <button onclick="addToCart()">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1550583724-1255818c053b?auto=format&fit=crop&q=80&w=600" alt="Milk">
+    <h3>Fresh Farm Milk</h3>
+    <p class="price">₹60/Litre</p>
+    <button onclick="addToCart()">Add to Cart</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1566112907491-949439606dcc?auto=format&fit=crop&q=80&w=600" alt="Honey">
+    <h3>Raw Forest Honey</h3>
+    <p class="price">₹250/500g</p>
+    <button onclick="addToCart()">Add to Cart</button>
+  </div>
+</section>
 
 <footer>
-  <p>© 2026 Farmer Marketplace</p>
+  <p>© 2026 Farmer Marketplace | Empowering Local Agriculture</p>
+  <p><small>Privacy Policy • Terms of Service • Help Center</small></p>
 </footer>
 
 <script>
-let cart = [];
-let total = 0;
-
-function addToCart(name, price) {
-  cart.push({name, price});
-  total += price;
-
-  document.getElementById("cart").innerText = "🛒 Cart: " + cart.length;
-  updateCart();
-}
-
-function updateCart() {
-  let list = document.getElementById("cartItems");
-  list.innerHTML = "";
-
-  cart.forEach(item => {
-    let li = document.createElement("li");
-    li.innerText = item.name + " - ₹" + item.price;
-    list.appendChild(li);
-  });
-
-  document.getElementById("total").innerText = total;
-}
-
-function checkout() {
-  if(cart.length === 0){
-    alert("Cart is empty!");
-  } else {
-    alert("Order placed successfully!");
-    cart = [];
-    total = 0;
-    updateCart();
-    document.getElementById("cart").innerText = "🛒 Cart: 0";
+  let count = 0;
+  function addToCart() {
+    count++;
+    document.getElementById('cart-count').innerText = count;
+    alert("Item added to your basket!");
   }
-}
-
-function searchProduct() {
-  let input = document.getElementById("search").value.toLowerCase();
-  let cards = document.querySelectorAll(".card");
-
-  cards.forEach(card => {
-    let name = card.getAttribute("data-name");
-    card.style.display = name.includes(input) ? "block" : "none";
-  });
-}
 </script>
 
 </body>
-</html>
+  </html>
+
