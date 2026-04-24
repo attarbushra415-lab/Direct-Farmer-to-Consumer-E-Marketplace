@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,49 +7,43 @@
 <title>FarmDirect Pro</title>
 
 <style>
-body {
+body{
   margin:0;
-  font-family: Arial;
+  font-family:Arial;
+  overflow:hidden;
   background:#e8f5e9;
 }
 
-/* 🌿 HERO LOGIN SCREEN */
-.login {
+/* LOGIN */
+.screen{
+  position:absolute;
+  width:100%;
   height:100vh;
+  transition:0.5s;
+}
+
+.login{
   background:
   linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
-  url("https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1200");
+  url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=1200");
   background-size:cover;
+  color:white;
   display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
-  color:white;
   text-align:center;
-  padding:20px;
 }
 
-.login h1 {
-  font-size:26px;
-  margin-bottom:5px;
-}
-
-.login p {
-  font-size:13px;
-  opacity:0.9;
-}
-
-/* LOGIN BOX */
-.box {
+.box{
   background:rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
   padding:20px;
   border-radius:15px;
-  margin-top:15px;
-  width:260px;
+  width:270px;
+  backdrop-filter:blur(10px);
 }
 
-input, select {
+input,select{
   width:100%;
   padding:10px;
   margin:5px 0;
@@ -56,7 +51,7 @@ input, select {
   border-radius:8px;
 }
 
-button {
+button{
   width:100%;
   padding:10px;
   background:#2e7d32;
@@ -66,163 +61,252 @@ button {
   cursor:pointer;
 }
 
-button:hover {
+button:hover{
   background:#1b5e20;
 }
 
 /* APP */
-.app {
-  display:none;
+.app{
+  background:#f1f8e9;
+  transform:translateX(100%);
 }
 
-.header {
+.show{
+  transform:translateX(0);
+}
+
+/* HEADER */
+.header{
   background:#1b5e20;
   color:white;
   padding:12px;
   text-align:center;
 }
 
-.grid {
+/* PAGE */
+.page{
+  display:none;
+  height:100vh;
+  overflow:auto;
+  padding-bottom:60px;
+}
+
+.active{
+  display:block;
+  animation:slide .4s ease;
+}
+
+@keyframes slide{
+  from{transform:translateX(50px);opacity:0}
+  to{transform:translateX(0);opacity:1}
+}
+
+/* GRID */
+.grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
   padding:10px;
 }
 
-.card {
+/* CARD */
+.card{
   background:white;
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 3px 8px rgba(0,0,0,0.2);
   transition:0.3s;
+  animation:fade 0.4s ease;
 }
 
-.card:hover {
-  transform:scale(1.04);
+.card:hover{
+  transform:scale(1.05);
 }
 
-.card img {
+@keyframes fade{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+.card img{
   width:100%;
   height:110px;
   object-fit:cover;
 }
 
-.card-body {
-  padding:8px;
-}
-
-/* CART */
-.cart, .payment, .dashboard {
+/* CART / PANEL */
+.panel{
+  background:white;
   margin:10px;
   padding:10px;
-  background:white;
   border-radius:10px;
 }
 
+/* PAYMENT */
+.payment{
+  background:white;
+  padding:15px;
+  margin:10px;
+  border-radius:10px;
+}
+
+/* TRACK */
+.track{
+  background:white;
+  margin:10px;
+  padding:10px;
+  border-radius:10px;
+  font-size:13px;
+}
+
+/* NAV */
+.nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  background:white;
+  padding:10px;
+  border-top:1px solid #ccc;
+}
+
+.nav div{
+  cursor:pointer;
+  font-size:13px;
+}
+
+.nav .activeTab{
+  color:#2e7d32;
+  font-weight:bold;
+}
 </style>
 </head>
 
 <body>
 
-<!-- 🌿 LOGIN HERO PAGE -->
-<div class="login" id="loginBox">
-
-<h1>🌾 Direct Farmer to Consumer</h1>
-<p>Fresh farm produce directly from farmers to your home 🚜</p>
+<!-- LOGIN -->
+<div class="screen login" id="login">
+<h1>🌾 FarmDirect</h1>
+<p>Fresh Fruits & Vegetables from Farmers 🚜</p>
 
 <div class="box">
-  <input id="user" placeholder="Enter Name">
-
-  <select id="role">
-    <option value="customer">Customer</option>
-    <option value="farmer">Farmer</option>
-  </select>
-
-  <button onclick="login()">Enter Marketplace</button>
+<input id="user" placeholder="Name">
+<select id="role">
+<option value="customer">Customer</option>
+<option value="farmer">Farmer</option>
+</select>
+<button onclick="enterApp()">Enter</button>
 </div>
-
 </div>
 
 <!-- APP -->
-<div class="app" id="app">
+<div class="screen app" id="app">
 
 <div class="header">🌾 FarmDirect Pro</div>
 
-<!-- FARMER DASHBOARD -->
-<div class="dashboard" id="dashboard" style="display:none;">
-<h3>👨‍🌾 Farmer Dashboard</h3>
-<p>Manage your farm products easily</p>
-<button onclick="addDummyProduct()">Add Product</button>
+<!-- HOME -->
+<div class="page active" id="home">
+<div class="grid" id="products"></div>
 </div>
 
-<!-- PRODUCTS -->
-<div class="grid" id="products"></div>
+<!-- FARMER -->
+<div class="page" id="farmer">
+<div class="panel">
+<h3>👨‍🌾 Farmer Dashboard</h3>
+<input id="pname" placeholder="Product Name">
+<input id="pprice" placeholder="Price">
+<button onclick="addProduct()">Upload Product</button>
+
+<h4>Your Products</h4>
+<div id="myproducts"></div>
+</div>
+</div>
 
 <!-- CART -->
-<div class="cart">
-<h3>🛒 Cart</h3>
-<div id="cart"></div>
-<p>Total: ₹<span id="total"></span></p>
-<button onclick="openPayment()">Checkout</button>
+<div class="page" id="cartPage">
+<div class="panel" id="cart"></div>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="openPay()">Checkout</button>
 </div>
 
 <!-- PAYMENT -->
-<div class="payment" id="payment" style="display:none;">
-<h3>💳 Razorpay Payment (UI)</h3>
+<div class="page" id="payPage">
+<div class="payment">
+<h3>💳 Razorpay Checkout (Mock UI)</h3>
 <input placeholder="Enter UPI ID">
 <button onclick="pay()">Pay Now</button>
+</div>
+
+<div class="track" id="track"></div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+<div onclick="openPage('home')" id="navHome">🏠 Home</div>
+<div onclick="openPage('cartPage')" id="navCart">🛒 Cart</div>
+<div onclick="openPage('farmer')" id="navFarmer">👨‍🌾 Farmer</div>
 </div>
 
 </div>
 
 <script>
 
-let user="", role="";
-let cart=[];
+let products = [
 
-let products=[
- {name:"Tomato",price:30,img:"https://images.unsplash.com/photo-1607305387299-a3d9611cd469?w=600"},
- {name:"Potato",price:25,img:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=600"},
- {name:"Onion",price:20,img:"https://images.unsplash.com/photo-1508747703725-719777637510?w=600"}
+/* 🌿 VEGETABLES */
+{name:"Tomato",price:30,img:"https://images.unsplash.com/photo-1607305387299-a3d9611cd469?w=600"},
+{name:"Potato",price:25,img:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=600"},
+{name:"Onion",price:20,img:"https://images.unsplash.com/photo-1508747703725-719777637510?w=600"},
+{name:"Carrot",price:35,img:"https://images.unsplash.com/photo-1447175008436-054170c2e979?w=600"},
+
+/* 🍎 FRUITS */
+{name:"Apple",price:120,img:"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=600"},
+{name:"Banana",price:40,img:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=600"},
+{name:"Orange",price:60,img:"https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600"},
+{name:"Grapes",price:80,img:"https://images.unsplash.com/photo-1537640538966-79f369143f8f?w=600"}
+
 ];
 
+let cart=[];
+
 /* LOGIN */
-function login(){
-  user=document.getElementById("user").value;
-  role=document.getElementById("role").value;
-
-  document.getElementById("loginBox").style.display="none";
-  document.getElementById("app").style.display="block";
-
-  if(role==="farmer"){
-    document.getElementById("dashboard").style.display="block";
-  }
-
+function enterApp(){
+  document.getElementById("login").style.display="none";
+  document.getElementById("app").classList.add("show");
   render();
+}
+
+/* NAV */
+function openPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".nav div").forEach(n=>n.classList.remove("activeTab"));
+  if(id=="home") document.getElementById("navHome").classList.add("activeTab");
+  if(id=="cartPage") document.getElementById("navCart").classList.add("activeTab");
+  if(id=="farmer") document.getElementById("navFarmer").classList.add("activeTab");
 }
 
 /* PRODUCTS */
 function render(){
   let html="";
-
   products.forEach((p,i)=>{
     html+=`
     <div class="card">
       <img src="${p.img}">
-      <div class="card-body">
+      <div style="padding:8px">
         <h4>${p.name}</h4>
         <p>₹${p.price}</p>
-        <button onclick="addCart(${i})">Add to Cart</button>
+        <button onclick="add(${i})">Add</button>
       </div>
     </div>`;
   });
-
   document.getElementById("products").innerHTML=html;
-  updateCart();
 }
 
 /* CART */
-function addCart(i){
+function add(i){
   cart.push(products[i]);
   updateCart();
 }
@@ -232,7 +316,7 @@ function updateCart(){
   let total=0;
 
   cart.forEach(c=>{
-    total+=c.price;
+    total+=Number(c.price);
     html+=`<p>${c.name} - ₹${c.price}</p>`;
   });
 
@@ -240,9 +324,29 @@ function updateCart(){
   document.getElementById("total").innerText=total;
 }
 
+/* FARMER */
+function addProduct(){
+  let n=document.getElementById("pname").value;
+  let p=document.getElementById("pprice").value;
+
+  let obj={
+    name:n,
+    price:p,
+    img:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600"
+  };
+
+  products.push(obj);
+  render();
+
+  document.getElementById("myproducts").innerHTML+=
+  `<p>${n} - ₹${p}</p>`;
+}
+
 /* PAYMENT */
-function openPayment(){
-  document.getElementById("payment").style.display="block";
+function openPay(){
+  openPage("payPage");
+  document.getElementById("track").innerHTML=
+  "🟡 Ordered → 🟠 Packed → 🔵 Out for Delivery → 🟢 Delivered";
 }
 
 function pay(){
@@ -251,18 +355,7 @@ function pay(){
   updateCart();
 }
 
-/* FARMER ADD */
-function addDummyProduct(){
-  products.push({
-    name:"New Crop",
-    price:40,
-    img:"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600"
-  });
-  render();
-}
-
 </script>
 
 </body>
 </html>
-
