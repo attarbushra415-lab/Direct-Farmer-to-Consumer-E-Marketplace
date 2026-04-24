@@ -75,6 +75,8 @@ nav a:hover {
 
 .card img {
   width: 100%;
+  height: 150px;
+  object-fit: cover;
   border-radius: 10px;
 }
 
@@ -132,29 +134,33 @@ footer {
 
 <section class="products" id="productList">
 
-  <div class="card" data-name="tomato" data-price="30">
-    <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce">
+  <!-- Tomatoes -->
+  <div class="card" data-name="tomato">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Bright_red_tomato_and_cross_section02.jpg">
     <h3>Tomatoes</h3>
     <p>₹30/kg</p>
     <button onclick="addToCart('Tomatoes',30)">Add to Cart</button>
   </div>
 
-  <div class="card" data-name="potato" data-price="20">
-    <img src="https://images.unsplash.com/photo-1582515073490-dc34d8d4d8e3">
+  <!-- Potatoes -->
+  <div class="card" data-name="potato">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg">
     <h3>Potatoes</h3>
     <p>₹20/kg</p>
     <button onclick="addToCart('Potatoes',20)">Add to Cart</button>
   </div>
 
-  <div class="card" data-name="carrot" data-price="40">
-    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2">
+  <!-- Carrots -->
+  <div class="card" data-name="carrot">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Carrots_of_many_colors.jpg">
     <h3>Carrots</h3>
     <p>₹40/kg</p>
     <button onclick="addToCart('Carrots',40)">Add to Cart</button>
   </div>
 
-  <div class="card" data-name="onion" data-price="25">
-    <img src="https://images.unsplash.com/photo-1589927986089-35812388d1f4">
+  <!-- Onions -->
+  <div class="card" data-name="onion">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Onions.jpg">
     <h3>Onions</h3>
     <p>₹25/kg</p>
     <button onclick="addToCart('Onions',25)">Add to Cart</button>
