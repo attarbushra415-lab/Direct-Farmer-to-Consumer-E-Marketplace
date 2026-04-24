@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -222,11 +221,7 @@ function searchProduct() {
 
   cards.forEach(card => {
     let name = card.getAttribute("data-name");
-    if(name.includes(input)){
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
+    card.style.display = name.includes(input) ? "block" : "none";
   });
 }
 </script>
