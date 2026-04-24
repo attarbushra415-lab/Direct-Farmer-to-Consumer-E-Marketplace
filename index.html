@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Farmer Marketplace</title>
-
   <style>
     body {
       margin: 0;
@@ -39,7 +38,7 @@
     .hero {
       text-align: center;
       padding: 40px;
-      background: url('https://source.unsplash.com/1200x400/?farm') no-repeat center/cover;
+      background: url('https://images.unsplash.com/photo-1500595046743-cd271d694d30') no-repeat center/cover;
       color: white;
     }
 
@@ -60,11 +59,6 @@
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       text-align: center;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
     }
 
     .card img {
@@ -86,16 +80,6 @@
       background: #1b5e20;
     }
 
-    .cart {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background: orange;
-      padding: 10px;
-      border-radius: 10px;
-      color: white;
-    }
-
     footer {
       background: #2e7d32;
       color: white;
@@ -105,7 +89,6 @@
     }
   </style>
 </head>
-
 <body>
 
 <header>
@@ -118,10 +101,6 @@
   <a href="#">Contact</a>
 </nav>
 
-<div class="cart">
-  🛒 Cart: <span id="count">0</span>
-</div>
-
 <section class="hero">
   <h1>Fresh Products Direct from Farmers</h1>
   <p>No middleman • Better prices • Fresh quality</p>
@@ -130,31 +109,31 @@
 <section class="products">
 
   <div class="card">
-    <img src="https://source.unsplash.com/300x200/?tomato">
+    <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce" alt="Tomato">
     <h3>Tomatoes</h3>
     <p>₹30/kg</p>
-    <button onclick="addToCart()">Add to Cart</button>
+    <button>Add to Cart</button>
   </div>
 
   <div class="card">
-    <img src="https://source.unsplash.com/300x200/?potato">
+    <img src="https://images.unsplash.com/photo-1582515073490-dc34d8d4d8e3" alt="Potato">
     <h3>Potatoes</h3>
     <p>₹20/kg</p>
-    <button onclick="addToCart()">Add to Cart</button>
+    <button>Add to Cart</button>
   </div>
 
   <div class="card">
-    <img src="https://source.unsplash.com/300x200/?carrot">
+    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2" alt="Carrot">
     <h3>Carrots</h3>
     <p>₹40/kg</p>
-    <button onclick="addToCart()">Add to Cart</button>
+    <button>Add to Cart</button>
   </div>
 
   <div class="card">
-    <img src="https://source.unsplash.com/300x200/?onion">
+    <img src="https://images.unsplash.com/photo-1589927986089-35812388d1f4" alt="Onion">
     <h3>Onions</h3>
     <p>₹25/kg</p>
-    <button onclick="addToCart()">Add to Cart</button>
+    <button>Add to Cart</button>
   </div>
 
 </section>
@@ -162,15 +141,6 @@
 <footer>
   <p>© 2026 Farmer Marketplace | Made for Project</p>
 </footer>
-
-<script>
-let count = 0;
-
-function addToCart(){
-  count++;
-  document.getElementById("count").innerText = count;
-}
-</script>
 
 </body>
 </html>
