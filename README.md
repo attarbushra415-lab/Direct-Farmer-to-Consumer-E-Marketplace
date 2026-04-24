@@ -1,72 +1,145 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farmer Cart</title>
+<title>Farmer Cart UI</title>
 
 <style>
 body {
   margin: 0;
   font-family: Arial;
-  background: #f4f4f4;
-}
-
-/* Screens */
-.screen {
-  display: none;
+  background: #eee;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
   padding: 20px;
-  text-align: center;
 }
 
-.active {
-  display: block;
+/* Mobile screen box */
+.screen {
+  width: 260px;
+  height: 520px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  position: relative;
 }
 
 /* Splash */
-#splash {
-  height: 100vh;
+.splash {
+  background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6') center/cover;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: green;
   color: white;
-  font-size: 24px;
 }
 
-/* Buttons */
-button {
-  padding: 10px;
-  margin: 10px;
-  background: green;
+.logo {
+  background: white;
+  color: green;
+  padding: 12px;
+  border-radius: 50%;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+/* Language */
+.language {
+  background: url('https://images.unsplash.com/photo-1502082553048-f009c37129b9') center/cover;
   color: white;
+  padding: 20px;
+}
+
+.language h3 {
+  text-align: center;
+}
+
+.lang-list p {
+  margin: 8px 0;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
   border: none;
   border-radius: 5px;
+  background: green;
+  color: white;
+  margin-top: 15px;
 }
 
-/* Inputs */
-input {
+/* Signup */
+.signup {
+  padding: 15px;
+}
+
+.signup img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.signup input {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+}
+
+/* Products */
+.products {
   padding: 10px;
-  margin: 8px;
-  width: 80%;
 }
 
-/* Product List */
 .item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: white;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 5px;
+  margin-bottom: 12px;
 }
 
-.cart-box {
-  background: #fff;
-  padding: 10px;
-  margin-top: 15px;
-  border-radius: 5px;
+.item img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.item span {
+  flex: 1;
+}
+
+/* Toggle switch */
+.toggle {
+  width: 40px;
+  height: 20px;
+  background: #ccc;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background: white;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.toggle.active {
+  background: green;
+}
+
+.toggle.active::before {
+  left: 20px;
 }
 </style>
 
@@ -75,96 +148,99 @@ input {
 <body>
 
 <!-- Splash Screen -->
-<div id="splash" class="screen active">
-  🛒 Farmer Cart
+<div class="screen splash">
+  <div class="logo">🛒</div>
+  <h2>Farmer Cart</h2>
 </div>
 
 <!-- Language Screen -->
-<div id="language" class="screen">
-  <h2>Select Language</h2>
-  <p>English</p>
-  <p>Hindi (हिंदी)</p>
-  <p>Marathi (मराठी)</p>
-  <button onclick="nextScreen('signup')">Continue</button>
+<div class="screen language">
+  <h3>Select Language</h3>
+  <div class="lang-list">
+    <p>English</p>
+    <p>Hindi (हिंदी)</p>
+    <p>Marathi (मराठी)</p>
+    <p>Telugu (తెలుగు)</p>
+    <p>Tamil (தமிழ்)</p>
+  </div>
+  <button class="btn">Continue</button>
 </div>
 
 <!-- Signup Screen -->
-<div id="signup" class="screen">
-  <h2>Create Account</h2>
-  <input type="text" placeholder="Name">
-  <input type="password" placeholder="Password">
-  <br>
-  <button onclick="nextScreen('home')">Continue</button>
+<div class="screen signup">
+  <h3>Create Account</h3>
+
+  <input placeholder="Email / Mobile">
+  <input placeholder="Username">
+  <input placeholder="Password" type="password">
+
+  <img src="https://images.unsplash.com/photo-1542838132-92c53300491e">
+
+  <button class="btn">Continue</button>
 </div>
 
-<!-- Home Screen -->
-<div id="home" class="screen">
-  <h2>Products</h2>
-
+<!-- Left Product List -->
+<div class="screen products">
   <div class="item">
-    🍅 Tomato ₹40
-    <button onclick="addCart('Tomato',40)">Add</button>
+    <img src="https://cdn-icons-png.flaticon.com/512/415/415733.png">
+    <span>Spinach</span>
+    <div class="toggle"></div>
   </div>
 
   <div class="item">
-    🥭 Mango ₹80
-    <button onclick="addCart('Mango',80)">Add</button>
+    <img src="https://cdn-icons-png.flaticon.com/512/590/590685.png">
+    <span>Strawberry</span>
+    <div class="toggle"></div>
   </div>
 
   <div class="item">
-    🍌 Banana ₹30
-    <button onclick="addCart('Banana',30)">Add</button>
+    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909760.png">
+    <span>Grapes</span>
+    <div class="toggle"></div>
   </div>
 
   <div class="item">
-    🍇 Grapes ₹60
-    <button onclick="addCart('Grapes',60)">Add</button>
+    <img src="https://cdn-icons-png.flaticon.com/512/590/590682.png">
+    <span>Banana</span>
+    <div class="toggle"></div>
+  </div>
+</div>
+
+<!-- Right Product List -->
+<div class="screen products">
+  <div class="item">
+    <img src="https://cdn-icons-png.flaticon.com/512/135/135620.png">
+    <span>Tomato ₹40</span>
+    <div class="toggle"></div>
   </div>
 
-  <button onclick="showCart()">View Cart</button>
+  <div class="item">
+    <img src="https://cdn-icons-png.flaticon.com/512/590/590685.png">
+    <span>Mango ₹80</span>
+    <div class="toggle"></div>
+  </div>
 
-  <div id="cart" class="cart-box"></div>
+  <div class="item">
+    <img src="https://cdn-icons-png.flaticon.com/512/766/766020.png">
+    <span>Mushroom ₹40</span>
+    <div class="toggle"></div>
+  </div>
+
+  <div class="item">
+    <img src="https://cdn-icons-png.flaticon.com/512/2909/2909760.png">
+    <span>Blueberries</span>
+    <div class="toggle"></div>
+  </div>
 </div>
 
 <script>
-let cart = [];
-let total = 0;
-
-/* Switch Screens */
-function nextScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-/* Splash Auto Next */
-setTimeout(() => {
-  nextScreen('language');
-}, 2000);
-
-/* Add to Cart */
-function addCart(item, price) {
-  cart.push(item + " ₹" + price);
-  total += price;
-  alert(item + " added to cart");
-}
-
-/* Show Cart */
-function showCart() {
-  let cartDiv = document.getElementById("cart");
-
-  if(cart.length === 0){
-    cartDiv.innerHTML = "Cart is empty";
-    return;
-  }
-
-  cartDiv.innerHTML =
-    "<h3>Cart Items:</h3>" +
-    cart.join("<br>") +
-    "<br><br><b>Total: ₹" + total + "</b>";
-}
+document.querySelectorAll('.toggle').forEach(t => {
+  t.addEventListener('click', () => {
+    t.classList.toggle('active');
+  });
+});
 </script>
 
 </body>
 </html>
-
 
