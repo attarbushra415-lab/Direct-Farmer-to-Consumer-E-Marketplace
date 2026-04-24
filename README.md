@@ -1,304 +1,320 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmer Cart | Blinkit Style Grocery</title>
+    <title>Farmer Cart | Fresh Groceries</title>
     <style>
         :root {
-            --blinkit-green: #0c831f;
-            --blinkit-yellow: #f7d54d;
-            --light-gray: #f5f7f9;
-            --text-main: #1f1f1f;
-            --text-muted: #666;
-            --border: #e8e8e8;
+            --primary: #0c831f; /* Blinkit Green */
+            --accent: #f7d54d;  /* Blinkit Yellow */
+            --bg: #f4f6fb;
+            --white: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-light: #666666;
+            --shadow: 0 8px 20px rgba(0,0,0,0.06);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #121212; color: var(--text-dark); }
 
-        body {
-            background-color: var(--light-gray);
-            color: var(--text-main);
-            line-height: 1.5;
-        }
-
-        /* Container to keep mobile feel on Desktop */
-        .app-container {
-            max-width: 500px;
+        /* Main Container for Mobile View on Desktop */
+        .app-wrapper {
+            max-width: 450px;
             margin: 0 auto;
-            background: white;
+            background: var(--white);
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
 
-        /* Screen Sections */
+        /* Common Section Styling */
         section {
-            padding: 20px;
+            padding: 24px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            border-bottom: 8px solid var(--light-gray);
+            border-bottom: 10px solid var(--bg);
         }
-
-        h2 { font-weight: 800; margin-bottom: 15px; font-size: 24px; }
 
         /* 1. Splash Screen */
         .splash {
-            background: linear-gradient(135deg, var(--blinkit-yellow) 0%, #ffeb3b 100%);
+            background: var(--accent);
             justify-content: center;
             align-items: center;
             text-align: center;
         }
-        .logo-box {
+        .logo-icon {
+            font-size: 70px;
             background: white;
-            padding: 20px;
-            border-radius: 30px;
-            font-size: 50px;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 35px;
             margin-bottom: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        /* 2. Language Screen */
-        .lang-option {
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 15px;
+        /* 2. Language Selection */
+        .lang-card {
+            border: 2px solid #eee;
+            border-radius: 16px;
+            padding: 16px;
             margin-bottom: 12px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
-            font-weight: 600;
+            align-items: center;
+            transition: 0.3s;
         }
-        .lang-option.selected {
-            border-color: var(--blinkit-green);
-            background-color: #f0fff0;
-        }
+        .lang-card.active { border-color: var(--primary); background: #f0fff0; }
 
-        /* 3. Signup Form (User Interactive) */
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
-        input {
+        /* 3. Interactive Signup Form */
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--text-light); margin-bottom: 6px; text-transform: uppercase; }
+        .form-group input {
             width: 100%;
             padding: 14px;
-            border: 1px solid var(--border);
+            border: 1.5px solid #e0e0e0;
             border-radius: 12px;
             font-size: 16px;
+            background: var(--bg);
             outline: none;
-            transition: 0.2s;
         }
-        input:focus { border-color: var(--blinkit-green); box-shadow: 0 0 0 3px rgba(12,131,31,0.1); }
+        .form-group input:focus { border-color: var(--primary); background: white; }
 
-        /* 4. Product Listing (The Blinkit UI) */
-        .header-sticky {
+        /* 4. Product Listing Layout */
+        .sticky-nav {
             position: sticky;
             top: 0;
             background: white;
             z-index: 100;
             padding: 15px;
-            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .search-box {
-            background: var(--light-gray);
-            border-radius: 10px;
+        .search-container {
             display: flex;
             align-items: center;
-            padding: 0 12px;
+            background: var(--bg);
+            padding: 10px 15px;
+            border-radius: 10px;
             margin-top: 10px;
         }
-        .search-box input { background: transparent; border: none; padding: 10px; font-size: 14px; }
+        .search-container input {
+            border: none;
+            background: none;
+            outline: none;
+            margin-left: 10px;
+            width: 100%;
+        }
 
         .product-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding-top: 20px;
+            gap: 12px;
+            padding: 15px 0;
         }
         .product-card {
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 10px;
             background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 16px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
+            transition: 0.2s;
         }
-        .product-card img {
-            width: 100%;
-            height: 120px;
-            object-fit: contain;
-            margin-bottom: 10px;
-        }
-        .p-title { font-size: 14px; font-weight: 600; height: 40px; overflow: hidden; }
-        .p-qty { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
-        .p-footer { display: flex; justify-content: space-between; align-items: center; }
-        .p-price { font-weight: 700; font-size: 15px; }
-        
+        .product-card:hover { border-color: var(--primary); }
+        .p-img { width: 100%; height: 110px; object-fit: contain; margin-bottom: 8px; }
+        .p-name { font-size: 14px; font-weight: 600; color: #333; line-height: 1.3; height: 36px; overflow: hidden; }
+        .p-weight { font-size: 12px; color: var(--text-light); margin: 4px 0 10px 0; }
+        .p-row { display: flex; justify-content: space-between; align-items: center; }
+        .p-price { font-weight: 800; font-size: 15px; }
+
         .add-btn {
             background: white;
-            color: var(--blinkit-green);
-            border: 1px solid var(--blinkit-green);
-            padding: 5px 15px;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 6px 16px;
             border-radius: 8px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
+            font-size: 12px;
+            text-transform: uppercase;
         }
-        .add-btn:active { transform: scale(0.9); background: var(--blinkit-green); color: white; }
+        .add-btn:hover { background: var(--primary); color: white; }
 
-        /* Buttons */
-        .btn-large {
-            background: var(--blinkit-green);
+        /* Buttons & Footer */
+        .btn-main {
+            background: var(--primary);
             color: white;
+            padding: 18px;
+            border-radius: 14px;
             border: none;
-            width: 100%;
-            padding: 16px;
-            border-radius: 12px;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             margin-top: auto;
         }
 
-        /* 5. Floating Cart Area */
-        .cart-float {
+        /* Floating Cart Bar */
+        #cart-bar {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 450px;
-            background: var(--blinkit-green);
+            max-width: 400px;
+            background: var(--primary);
             color: white;
-            padding: 15px 20px;
-            border-radius: 12px;
-            display: flex;
+            padding: 14px 20px;
+            border-radius: 14px;
+            display: none;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(12,131,31,0.3);
-            display: none; /* Hidden by default */
+            box-shadow: 0 10px 30px rgba(12,131,31,0.4);
             z-index: 1000;
+            cursor: pointer;
         }
+
+        /* Helper */
+        .spacer { height: 120px; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
+<div class="app-wrapper">
 
     <section class="splash">
-        <div class="logo-box">👨‍🌾</div>
-        <h1 style="font-size: 32px; font-weight: 900;">Farmer Cart</h1>
-        <p style="color: #444;">Freshness delivered in 10 minutes</p>
-        <p style="margin-top: 40px; font-size: 12px; color: #666;">Scroll down to start ↓</p>
+        <div class="logo-icon">🧺</div>
+        <h1 style="font-weight: 900; letter-spacing: -1px; font-size: 36px;">Farmer Cart</h1>
+        <p style="opacity: 0.8; font-weight: 500;">Fresh Veggies in 10 Mins</p>
+        <p style="margin-top: 50px; font-size: 12px; color: #555; animation: bounce 2s infinite;">SCROLL DOWN TO START ↓</p>
     </section>
 
-    <section id="language">
-        <h2>Choose Language</h2>
-        <div class="lang-option selected" onclick="selectLang(this)">
-            English <span>✓</span>
+    <section id="lang-section">
+        <h2 style="margin-bottom: 20px;">Select Language</h2>
+        <div class="lang-card active" onclick="setLang(this)">
+            <div><strong>English</strong><p style="font-size: 12px; color: var(--text-light)">Primary Language</p></div>
+            <span>✔</span>
         </div>
-        <div class="lang-option" onclick="selectLang(this)">Hindi (हिंदी)</div>
-        <div class="lang-option" onclick="selectLang(this)">Marathi (मराठी)</div>
-        <div class="lang-option" onclick="selectLang(this)">Telugu (తెలుగు)</div>
-        <button class="btn-large" onclick="scrollToId('signup')">Continue</button>
+        <div class="lang-card" onclick="setLang(this)">
+            <div><strong>Hindi (हिंदी)</strong><p style="font-size: 12px; color: var(--text-light)">हिन्दी भाषा</p></div>
+        </div>
+        <div class="lang-card" onclick="setLang(this)">
+            <div><strong>Marathi (मराठी)</strong><p style="font-size: 12px; color: var(--text-light)">मराठी भाषा</p></div>
+        </div>
+        <button class="btn-main" onclick="navTo('signup-section')">Continue</button>
     </section>
 
-    <section id="signup">
-        <h2>Create Account</h2>
-        <p style="color: var(--text-muted); margin-bottom: 20px;">Please enter your details to browse vegetables.</p>
+    <section id="signup-section">
+        <h2 style="margin-bottom: 8px;">Let's Get Started!</h2>
+        <p style="color: var(--text-light); margin-bottom: 30px;">Create an account to start shopping.</p>
         
         <div class="form-group">
-            <label>FULL NAME</label>
-            <input type="text" id="userName" placeholder="Enter your name">
+            <label>Full Name</label>
+            <input type="text" id="inp-name" placeholder="Enter your name">
         </div>
         <div class="form-group">
-            <label>MOBILE NUMBER</label>
-            <input type="tel" id="userPhone" placeholder="+91 00000 00000">
+            <label>Mobile Number</label>
+            <input type="tel" id="inp-phone" placeholder="+91 00000 00000">
         </div>
         <div class="form-group">
-            <label>EMAIL ADDRESS</label>
-            <input type="email" id="userEmail" placeholder="name@example.com">
+            <label>Email ID</label>
+            <input type="email" id="inp-email" placeholder="example@mail.com">
         </div>
-        
-        <button class="btn-large" onclick="saveUser()">Browse Products</button>
+
+        <button class="btn-main" onclick="validateAndGo()">Start Shopping</button>
     </section>
 
-    <section id="products" style="padding: 0;">
-        <div class="header-sticky">
-            <div style="font-size: 12px; font-weight: 700; color: var(--blinkit-green);">DELIVERING TO</div>
-            <div style="font-size: 14px; font-weight: 600;">Home - Current Location ▾</div>
-            <div class="search-box">
+    <section id="store-section" style="padding: 0;">
+        <div class="sticky-nav">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <span style="font-size: 11px; font-weight: 800; color: var(--primary);">DELIVERING TO</span>
+                    <h4 id="display-name" style="font-size: 14px;">User's Home ▾</h4>
+                </div>
+                <div style="font-size: 22px;">🛒</div>
+            </div>
+            <div class="search-container">
                 <span>🔍</span>
-                <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Search 'potato' or 'onion'">
+                <input type="text" id="searchBar" onkeyup="searchItems()" placeholder="Search 'Onion' or 'Tomato'...">
             </div>
         </div>
 
         <div style="padding: 15px;">
-            <h3 style="margin-bottom: 10px;">Fresh Vegetables</h3>
-            <div class="product-grid" id="productGrid">
+            <h3 style="margin-bottom: 15px;">Seasonal Vegetables</h3>
+            <div class="product-grid" id="mainGrid">
                 </div>
         </div>
-        <div style="height: 100px;"></div> </section>
+        <div class="spacer"></div>
+    </section>
 
 </div>
 
-<div class="cart-float" id="cartFloat" onclick="checkout()">
+<div id="cart-bar" onclick="processCheckout()">
     <div>
-        <span id="cartQty">1 Item</span>
-        <div id="cartPrice" style="font-weight: 800; font-size: 18px;">₹0</div>
+        <span id="cart-items-count">1 Item</span>
+        <div id="cart-total-price" style="font-weight: 800; font-size: 18px;">₹0</div>
     </div>
-    <div style="font-weight: 700;">View Cart 🛒</div>
+    <div style="font-weight: 700; display: flex; align-items: center;">
+        Next ➜
+    </div>
 </div>
 
 <script>
-    // 1. Data Store
-    const products = [
-        { id: 1, name: "Hybrid Tomato", qty: "500 g", price: 32, img: "https://cdn-icons-png.flaticon.com/512/1202/1202125.png" },
-        { id: 2, name: "Red Onion", qty: "1 kg", price: 45, img: "https://cdn-icons-png.flaticon.com/512/7230/7230868.png" },
-        { id: 3, name: "Fresh Potato", qty: "1 kg", price: 38, img: "https://cdn-icons-png.flaticon.com/512/1135/1135544.png" },
-        { id: 4, name: "Green Chili", qty: "100 g", price: 12, img: "https://cdn-icons-png.flaticon.com/512/2324/2324631.png" },
-        { id: 5, name: "Carrot (Gajar)", qty: "500 g", price: 40, img: "https://cdn-icons-png.flaticon.com/512/2224/2224115.png" },
-        { id: 6, name: "Coriander (Dhaniya)", qty: "1 unit", price: 10, img: "https://cdn-icons-png.flaticon.com/512/1514/1514931.png" },
-        { id: 7, name: "Garlic (Lehsun)", qty: "100 g", price: 50, img: "https://cdn-icons-png.flaticon.com/512/1041/1041344.png" },
-        { id: 8, name: "Ginger (Adrak)", qty: "250 g", price: 60, img: "https://cdn-icons-png.flaticon.com/512/2909/2909772.png" }
+    // Database
+    const productData = [
+        { id: 1, name: "Fresh Red Tomato", qty: "500 g", price: 35, img: "https://cdn-icons-png.flaticon.com/512/1202/1202125.png" },
+        { id: 2, name: "Organic Onion", qty: "1 kg", price: 48, img: "https://cdn-icons-png.flaticon.com/512/7230/7230868.png" },
+        { id: 3, name: "White Potato", qty: "1 kg", price: 30, img: "https://cdn-icons-png.flaticon.com/512/1135/1135544.png" },
+        { id: 4, name: "Green Chili", qty: "100 g", price: 15, img: "https://cdn-icons-png.flaticon.com/512/2324/2324631.png" },
+        { id: 5, name: "Carrot (Gajar)", qty: "500 g", price: 45, img: "https://cdn-icons-png.flaticon.com/512/2224/2224115.png" },
+        { id: 6, name: "Cauliflower", qty: "1 pc", price: 60, img: "https://cdn-icons-png.flaticon.com/512/2324/2324508.png" },
+        { id: 7, name: "Fresh Ginger", qty: "250 g", price: 55, img: "https://cdn-icons-png.flaticon.com/512/2909/2909772.png" },
+        { id: 8, name: "Garlic Bundle", qty: "100 g", price: 40, img: "https://cdn-icons-png.flaticon.com/512/1041/1041344.png" }
     ];
 
     let cart = [];
 
-    // 2. Navigation
-    function scrollToId(id) {
+    // Navigation
+    function navTo(id) {
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     }
 
-    function selectLang(el) {
-        document.querySelectorAll('.lang-option').forEach(opt => opt.classList.remove('selected'));
-        el.classList.add('selected');
+    function setLang(el) {
+        document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
     }
 
-    // 3. Form Handling
-    function saveUser() {
-        const name = document.getElementById('userName').value;
-        if(!name) {
-            alert("Please enter your name to continue!");
+    // Form Validation & Interaction
+    function validateAndGo() {
+        const name = document.getElementById('inp-name').value;
+        const phone = document.getElementById('inp-phone').value;
+
+        if (name.length < 3) {
+            alert("Please enter your full name");
             return;
         }
-        alert(`Welcome ${name}! Start shopping.`);
-        scrollToId('products');
+        if (phone.length < 10) {
+            alert("Please enter a valid phone number");
+            return;
+        }
+
+        document.getElementById('display-name').innerText = name + " ▾";
+        navTo('store-section');
     }
 
-    // 4. Product Logic
-    function renderProducts(items) {
-        const grid = document.getElementById('productGrid');
+    // Load Products
+    function loadStore(items) {
+        const grid = document.getElementById('mainGrid');
         grid.innerHTML = items.map(p => `
             <div class="product-card">
-                <img src="${p.img}" alt="${p.name}">
-                <div class="p-title">${p.name}</div>
-                <div class="p-qty">${p.qty}</div>
-                <div class="p-footer">
+                <img src="${p.img}" class="p-img">
+                <div class="p-name">${p.name}</div>
+                <div class="p-weight">${p.qty}</div>
+                <div class="p-row">
                     <span class="p-price">₹${p.price}</span>
                     <button class="add-btn" onclick="addToCart(${p.id})">ADD</button>
                 </div>
@@ -306,37 +322,41 @@
         `).join('');
     }
 
-    function filterProducts() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-        renderProducts(filtered);
+    // Search Logic
+    function searchItems() {
+        const term = document.getElementById('searchBar').value.toLowerCase();
+        const filtered = productData.filter(p => p.name.toLowerCase().includes(term));
+        loadStore(filtered);
     }
 
-    // 5. Cart Logic
+    // Cart Logic
     function addToCart(id) {
-        const item = products.find(p => p.id === id);
-        cart.push(item);
+        const p = productData.find(x => x.id === id);
+        cart.push(p);
         
-        const cartFloat = document.getElementById('cartFloat');
-        const cartQty = document.getElementById('cartQty');
-        const cartPrice = document.getElementById('cartPrice');
+        const bar = document.getElementById('cart-bar');
+        const countTxt = document.getElementById('cart-items-count');
+        const priceTxt = document.getElementById('cart-total-price');
 
-        cartFloat.style.display = 'flex';
-        cartQty.innerText = `${cart.length} Item${cart.length > 1 ? 's' : ''}`;
+        bar.style.display = 'flex';
+        countTxt.innerText = cart.length + (cart.length > 1 ? " Items" : " Item");
         
-        const total = cart.reduce((sum, current) => sum + current.price, 0);
-        cartPrice.innerText = `₹${total}`;
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        priceTxt.innerText = "₹" + total;
     }
 
-    function checkout() {
-        const total = cart.reduce((sum, i) => sum + i.price, 0);
-        alert(`Order Summary:\nTotal Items: ${cart.length}\nFinal Bill: ₹${total}\n\nYour fresh veggies are on the way!`);
+    function processCheckout() {
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        alert(`🎉 ORDER PLACED!\n\nThank you ${document.getElementById('inp-name').value}.\nYour bill of ₹${total} is confirmed.\nDelivery in 10 minutes.`);
+        
+        // Reset Cart
         cart = [];
-        document.getElementById('cartFloat').style.display = 'none';
+        document.getElementById('cart-bar').style.display = 'none';
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    // Initial Load
-    renderProducts(products);
+    // Init
+    loadStore(productData);
 </script>
 
 </body>
